@@ -1,0 +1,99 @@
+<br>
+<form class="row g-3">
+    <div class="col-auto">
+      <input type="date" class="form-control" name="getDetailDate" [(ngModel)]="getDetailDate">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+    </div>
+    
+</form>
+<hr>
+<app-addempreg></app-addempreg>
+<div *ngIf="isShowList">
+<div style="width: 98%;">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Entrance Reg. Our Code</th>
+            <th>Employee Name</th>
+            <th>Entry Date</th>
+            <th>Entry Time</th>
+            <th>Exit Date</th>
+            <th>Exit Time</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let entry of entries ; let i=index;">
+        <td>{{entries.length-i}}</td>
+        <td>{{entry.entranceRegisterOurCode}}</td>
+        <td>{{entry.personName}}</td>
+        <td>{{entry.entryTime | date:'dd-MM-yyyy'}}</td>
+        <td>{{entry.entryTime  | date:'HH:mm:ss'}}</td>
+        <td>{{entry.exitTime | date:'dd-MM-yyyy'}}</td>
+        <td>{{entry.exitTime | date:'HH:mm:ss'}}</td>
+        <td></td>
+        <td *ngIf="updateRole"><input type="button" class="form-control btn btn-warning" value="Update" (click)="openVerticallyCentered(content, entry)"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Additional Employee Information</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+      <div align="center">
+          <form>
+              <table>
+                  <tbody>
+                    <tr><td></td><td>{{helperService.getEmployee(updateEntry.personName, employees)}}</td></tr>
+                    <tr><td>&nbsp; Employee Name  &nbsp;</td>
+                        <td>
+                            <input class="form-control" list="employees" name="employeeName" id="employeeName" [(ngModel)]="updateEntry.personName" (change)="getVendorFromEmployee()" readonly>
+                            <datalist id="employees">
+                            <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                                {{employee.employeeOurCode}} - {{employee.employeeName}}
+                            </option>
+                            </datalist>
+                        </td>
+                        <td>&nbsp; Vendor Name &nbsp;</td><td><input type="text" class="form-control" name="vendorName" [(ngModel)]="updateEntry.vendorName" readonly></td></tr>
+                    <tr><td>&nbsp; Vehicle No &nbsp;</td><td><input type="text" class="form-control" name="vehicleNo" [(ngModel)]="updateEntry.vehicleNo"></td>
+                        <td>&nbsp; Entry Category &nbsp;</td><td><select class="form-control" [(ngModel)]="updateEntry.entryCategory" name="entryCategory">
+                                                                    <option value="Regular"> Regular</option>
+                                                                    <option value="OnDuty">On Duty</option>
+                                                                    <option value="Special"> Special</option>
+                                                                </select>
+                                                        </td></tr>
+                    <tr><td>&nbsp; Entry Time &nbsp;</td><td class="center-align bold-text">{{updateEntry.entryTime | date: 'dd - MM - yyyy &nbsp;  HH : mm'}}<!--<input type="time" class="form-control" name ="entryTime" [(ngModel)]="entryTime">--></td>
+                        <td>&nbsp; Exit Category &nbsp;</td><td><select class="form-control" [(ngModel)]="updateEntry.exitCategory" name="exitCategory">
+                                                                    <option value="Regular"> Regular</option>
+                                                                    <option value="OnDuty">On Duty</option>
+                                                                    <option value="Special"> Special</option>
+                                                                </select>
+                                                        </td></tr>
+                    <tr *ngIf="showExitTimeOption" class="border"><td>&nbsp; Exit Date &nbsp;</td><td><input type="date" class="form-control" name="exitdate"[(ngModel)]="exitDate" [readonly]="setEtime"></td>
+                        <td>&nbsp; Exit Time &nbsp;</td><td><input type="time" class="form-control" name="exitTime" [(ngModel)]="exitTime" [readonly]="setEtime"></td>
+                        <td><input type="checkbox" name="upExitdttm" [(ngModel)]="upExitdttm" (change)="setExitTime()"/> Do you want to update Date?</td>
+                    </tr>
+                    <tr><td *ngIf="showUpdatedExitTime">Exit Date </td><td class="center-align bold-text" *ngIf="showUpdatedExitTime">{{updateEntry.exitTime | date:'dd - MM - yyyy'}} &nbsp;
+                        {{updateEntry.exitTime | date:'HH : mm'}}</td>
+                        <td>&nbsp; Gloves &nbsp;</td><td><input type="textarea" class="form-control" name="purpose" [(ngModel)]="updateEntry.gloves"></td></tr>
+                    <tr><td>&nbsp; Snacks &nbsp;</td><td><input type="textarea" class="form-control" name="snacks" [(ngModel)]="updateEntry.snacks"></td>
+                        <td>&nbsp; Comments &nbsp;</td><td><input type="textarea" class="form-control" name="comments" [(ngModel)]="updateEntry.comments"></tr>
+                  </tbody>
+              </table>
+          </form>
+          <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+        </ngb-alert>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateEntranceRegister(updateEntry); ">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click'); getDetails()">Close</button>
+    </div>
+</ng-template>

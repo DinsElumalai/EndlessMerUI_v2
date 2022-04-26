@@ -1,0 +1,38 @@
+<app-additemorderschedule></app-additemorderschedule>
+<div style="width: 90%; padding-left: 5%;">
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>OrderScheduleOurCode</th>
+                <th>Schedule For</th>
+                <th>ItemOrder Id</th>
+                <th>Vendor Schedule Reference</th>
+                <th>Schedule Type</th>
+                <th>Schedule Date</th>
+                <th>Schedule Qty In Nos</th>
+                <th>Schedule Qty In Kgs</th>
+                <th>Schedule ValidUpto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let entry of entries ; let i=index;">
+                <td> {{entries.length-i}} </td>
+                <td>{{entry.orderScheduleOurCode}}</td>
+                <td>{{entry.scheduleFor}}</td>
+                <td>{{entry.itemOrderId}}</td>
+                <td>{{entry.vendorScheduleReference}}</td>
+                <td>{{entry.scheduleType}}</td>
+                <td>{{entry.scheduleDate | date: 'dd - MM - yyyy'}}</td>
+                <td>{{entry.scheduleQtyInNos}}</td>
+                <td>{{entry.scheduleQtyInKgs}}</td>
+                <td>{{entry.scheduleValidUpto}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="delete(entry.itemOrderScheduleId)" value="Delete">Delete</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>

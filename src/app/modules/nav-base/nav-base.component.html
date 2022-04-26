@@ -1,0 +1,218 @@
+
+<mat-toolbar color="primary" class="toolbarbg">
+   
+    <span mat-mini-fab (click)="isExpanded = !isExpanded" class="menubtn"  style="margin: 10px;">
+      <mat-icon>menu</mat-icon>
+    </span>
+    <img src="./assets/images/logo.svg" class="logo"/> &nbsp;&nbsp;
+    <span> Endless MerSec</span>
+    <span class="example-spacer"></span>
+    <span>
+      Welcome User! 
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
+    <span>
+      <span mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <img src="./assets/images/profile.png" class="logo menubtn"/>
+      </span>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="getComponent('changepassword')">
+          <span>Change Password</span>
+        </button>
+        <button mat-menu-item (click)="getComponent('logout')">
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+      &nbsp;&nbsp;
+    </span>
+
+</mat-toolbar>
+  <mat-drawer-container class="example-container mat-typography fullbg" autosize >
+    <mat-drawer #drawer mode="side" disableClose="true" opened="true" class="toolbarbg">
+      
+  
+      <mat-nav-list>
+        <mat-list-item (click)="getComponent('dashboard')">
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Dashboard</h4>
+        </mat-list-item>
+        <mat-list-item (click)="getComponent('entranceregister')">
+          <mat-icon mat-list-icon>security</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Entrance Register</h4>
+        </mat-list-item>
+
+      <!-- Master -->
+        <mat-list-item (click)="masterState = !masterState">
+          <mat-icon mat-list-icon>school</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Master 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-icon>expand_more</mat-icon></h4>
+        </mat-list-item>
+                <mat-list-item (click)="getComponent('employee')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>people</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">Employee</h4>
+                </mat-list-item>
+                <mat-list-item (click)="getComponent('user')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>people</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">User</h4>
+                </mat-list-item>
+                <mat-list-item (click)="getComponent('department')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>business</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">Department</h4>
+                </mat-list-item>
+                <mat-list-item (click)="getComponent('vendor')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>grain</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">Vendor</h4>
+                </mat-list-item>
+                <mat-list-item (click)="getComponent('hsncode')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>grain</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">HSN code</h4>
+                </mat-list-item>
+                <mat-list-item (click)="getComponent('itemreptseqvndr')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>grain</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">Item Rept Seq Vendor</h4>
+                </mat-list-item>
+                <mat-list-item (click)="getComponent('process')" *ngIf="masterState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>grain</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">Process</h4>
+                </mat-list-item>
+        <mat-list-item (click)="getComponent('underconstruction')">
+          <mat-icon mat-list-icon>group</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">HR / Admin</h4>
+        </mat-list-item>
+        <mat-list-item (click)="marketingState = !marketingState">
+          <mat-icon mat-list-icon>attach_money</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Marketing
+            &nbsp;&nbsp;
+            <mat-icon>expand_more</mat-icon>
+          </h4>
+        </mat-list-item>
+            <mat-list-item (click)="getComponent('itemrorder')" *ngIf="marketingState" class="subsidebarbg">
+              <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+              <h4 mat-line *ngIf="isExpanded">Item Order</h4>
+            </mat-list-item>
+            <mat-list-item (click)="getComponent('itemorderschedule')" *ngIf="marketingState" class="subsidebarbg">
+              <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+              <h4 mat-line *ngIf="isExpanded">Item Order Schedule</h4>
+            </mat-list-item>
+        <mat-list-item (click)="getComponent('underconstruction')">
+          <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Shores</h4>
+        </mat-list-item>
+        <mat-list-item (click)="getComponent('underconstruction')">
+          <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">MFG / MNT</h4>
+        </mat-list-item>
+        <mat-list-item (click)="getComponent('underconstruction')">
+          <mat-icon mat-list-icon>offline_pin</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">QA</h4>
+        </mat-list-item>
+        <mat-list-item (click)="financeState = !financeState">
+          <mat-icon mat-list-icon>attach_money</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Finance
+            &nbsp;&nbsp;
+            <mat-icon>expand_more</mat-icon>
+          </h4>
+        </mat-list-item>
+            <mat-list-item (click)="getComponent('ledger')" *ngIf="financeState" class="subsidebarbg">
+              <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+              <h4 mat-line *ngIf="isExpanded">Ledger</h4>
+            </mat-list-item>
+            <mat-list-item (click)="getComponent('itemdocument')" *ngIf="financeState" class="subsidebarbg">
+              <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+              <h4 mat-line *ngIf="isExpanded">Item Document</h4>
+            </mat-list-item>
+            <mat-list-item (click)="getComponent('dcdocumentpdf')" *ngIf="financeState" class="subsidebarbg">
+              <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+              <h4 mat-line *ngIf="isExpanded">DC PDF Document</h4>
+            </mat-list-item>
+            <mat-list-item (click)="getComponent('didocumentpdf')" *ngIf="financeState" class="subsidebarbg">
+              <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+              <h4 mat-line *ngIf="isExpanded">DI PDF Document</h4>
+            </mat-list-item>
+
+        <!-- Transaction -->
+        <mat-list-item (click)="transactionState = !transactionState">
+          <mat-icon mat-list-icon>transform</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Transaction
+            &nbsp;&nbsp;
+            <mat-icon>expand_more</mat-icon>
+          </h4>
+        </mat-list-item>
+              <mat-list-item (click)="getComponent('rcrn')" *ngIf="transactionState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">RCRN</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('ppon')" *ngIf="transactionState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">PPON</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('rpan')" *ngIf="transactionState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">RPAN</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('pdrn')" *ngIf="transactionState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">PDRN</h4>
+              </mat-list-item>
+
+              <!-- QMS -->
+        <mat-list-item (click)="qmsState = !qmsState">
+          <mat-icon mat-list-icon>file_copy</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">QMS
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-icon>expand_more</mat-icon>
+          </h4>
+        </mat-list-item>
+                <mat-list-item (click)="getComponent('documents')" *ngIf="qmsState" class="subsidebarbg">
+                  <mat-icon mat-list-icon>attach_file</mat-icon>
+                  <h4 mat-line *ngIf="isExpanded">Documents</h4>
+                </mat-list-item>
+
+                <!-- Admin -->
+        <mat-list-item (click)="adminState = !adminState">
+          <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+          <h4 mat-line *ngIf="isExpanded">Admin
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-icon>expand_more</mat-icon>
+          </h4>
+        </mat-list-item>
+              <mat-list-item (click)="getComponent('userlog')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">User Log</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('usergroup')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">User Group</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('userroles')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">User Roles</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('itemtransaction')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Item Transaction</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('prefixsetup')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Prefix Setup</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('prefixsetupspl')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>perm_data_setting</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Prefix Setup Special</h4>
+              </mat-list-item>
+              <mat-list-item (click)="getComponent('softwaresetup')" *ngIf="adminState" class="subsidebarbg">
+                <mat-icon mat-list-icon>settings</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Software Setup</h4>
+              </mat-list-item>
+        
+      </mat-nav-list>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      
+      
+      <router-outlet></router-outlet>
+
+    </div>
+  </mat-drawer-container>

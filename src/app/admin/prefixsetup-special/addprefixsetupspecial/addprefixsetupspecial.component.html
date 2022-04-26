@@ -1,0 +1,38 @@
+<div align="center">
+    <label><h2>Prefix Setup Special</h2></label>
+</div>
+<div style="width: 90%; padding-left: 5%;">
+  
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Vendor Id</th>
+                <th>Financial Year</th>
+                <th>OSPI</th>
+                <th>OSDI</th>
+                <th>OSDC</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> * </td>
+                <td><input class="form-control" list="vendors" #vndr name="vendorId" id="vendorId" [(ngModel)]="vndrSelectedValue" (change)="showName(vndr.value)">
+                    <datalist id="vendors">
+                    <option *ngFor="let vendor of vendors" [ngValue]="vendor" >
+                        {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                    </option>
+                    </datalist></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.financialYear" name="financialYear" readonly></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.ospiOurCodePrefix" name="ospiOurCodePrefix"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.osdiOurCodePrefix" name="osdiOurCodePrefix"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.osdcOurCodePrefix" name="osdcOurCodePrefix"></td>
+                
+                <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>

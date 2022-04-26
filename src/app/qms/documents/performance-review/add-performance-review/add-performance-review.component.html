@@ -1,0 +1,36 @@
+<div>
+    <form>
+        <table class="table table-striped tablepadding">
+            <thead>
+                <th>#</th>
+                <th>On</th>
+                <th>By</th>
+                <th>Comments</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><mat-icon>add_circle</mat-icon></td>
+                    <td><input type="date" class="form-control" name="reviewOn" [(ngModel)]="newRecord.reviewDate"></td>
+                    <td><input class="form-control" list="employees" name="reviewBy" id="reviewBy" [(ngModel)]="newRecord.employeeId" >
+                        <datalist id="employees">
+                        <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                            {{employee.employeeOurCode}} - {{employee.employeeName}}
+                        </option>
+                        </datalist>
+                    </td>
+                    <td><input type="text" class="form-control" name="reviewComments" [(ngModel)]="newRecord.reviewComments"></td>
+                    <td><button type="button" class="btn btn-success" name="save" (click)="save()">Save</button></td>
+                </tr>
+                <tr>
+                    <td></td><td></td>
+                    <td>{{helperService.getEmployee(newRecord.employeeId, employees)}}</td>
+                    <td></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </form>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>
+

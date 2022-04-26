@@ -1,0 +1,34 @@
+<!-- Dialog to get more info -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Additional Vechile Information</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div align="center">
+        <form>
+            <table>
+                <tbody>
+                    <tr><td>&nbsp; Vechile No  &nbsp;</td><td><input type="text" class="form-control"></td>
+                        <td>&nbsp; Vendor Name &nbsp;</td><td><input type="text" class="form-control"></td></tr>
+                    <tr><td>&nbsp; Driver Name &nbsp;</td><td><input type="text" class="form-control"></td>
+                        <td>&nbsp; Contact No 1 &nbsp;</td><td><input type="text" class="form-control"></td></tr>
+                    <tr><td>&nbsp; Contact No 2 &nbsp;</td><td><input type="text" class="form-control"></td>
+                        <td>&nbsp; Address 1 &nbsp;</td><td><input type="text" class="form-control"></td></tr>
+                    <tr><td>&nbsp; Address 2 &nbsp;</td><td><input type="text" class="form-control"></td>
+                        <td>&nbsp; Entry Time &nbsp;</td><td><input type="time" class="form-control"></td></tr>
+                    <tr><td>&nbsp; Exit Date &nbsp;</td><td><input type="date" class="form-control"></td>
+                        <td>&nbsp; Exit Time &nbsp;</td><td><input type="time" class="form-control"></td></tr>
+                    <tr><td>&nbsp; Purpose &nbsp;</td><td><input type="textarea" class="form-control"></td>
+                        <td>&nbsp; Comments &nbsp;</td><td><input type="textarea" class="form-control"></td></tr>
+                </tbody>
+            </table>
+        </form>
+      </div>
+      
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveSample(); modal.close('Save click');">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

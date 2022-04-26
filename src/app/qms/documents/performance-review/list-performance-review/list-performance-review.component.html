@@ -1,0 +1,92 @@
+<br>
+<h2>Performance Review</h2>
+<br>
+<form class="row g-3">
+    <div class="col-auto">
+        <h3>DocRecPer ID :</h3>
+    </div>
+    
+    <div class="col-auto">
+        <input class="form-control" list="perfRecords" name="getDetailId" id="getDetailId" [(ngModel)]="getDetailId" (change)="getPerformanceRecord(); ">
+          <datalist id="perfRecords">
+          <option *ngFor="let perfRecord of performanceRecords" [value]="perfRecord.docRecPerformanceId" >
+              {{perfRecord.typeNo}}
+          </option>
+          </datalist>
+      </div>
+      <div class="col-auto">
+          <button type="button" class="btn btn-outline-secondary me-2" placement="" [ngbPopover]="popContent" triggers="click:blur"> Verify Info</button>
+      </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+    </div>
+    <div class="col justify-content-end" style="text-align:right;">
+        <button type="submit" class="btn btn-primary mb-3" (click)="showCreate = !showCreate">Create</button>
+    </div>
+</form>
+<hr>
+<div>
+    <div *ngIf="showCreate">
+        <app-add-performance-review></app-add-performance-review>
+    </div>
+</div>
+<ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+</ngb-alert>
+<div *ngIf="isShowList">
+<div style="width: 98%;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Doc Rec Per Id</th>
+                <th>Created Client</th>
+                <th>Created Date</th>
+                <th>Reviewed On</th>
+                <th>Reviewed By</th>
+                <th>Review Comments</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let entry of entries ; let i=index;">
+            <td>{{entries.length-i}}</td>
+            <td>{{entry.docRecPerId}}</td>
+            <td>{{entry.createdClient }}</td>
+            <td>{{entry.createdDate | date:'yyyy-MM-dd'}}</td>
+            <td><input type="date" class="form-control" name="reviewOn" [(ngModel)]="entry.reviewDate"></td>
+            <td><input class="form-control" list="employees" name="reviewBy" id="reviewBy" [(ngModel)]="entry.employeeId" >
+                <datalist id="employees">
+                <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                    {{employee.employeeOurCode}} - {{employee.employeeName}}
+                </option>
+                </datalist>
+            </td>
+            <td><input type="text" class="form-control" name="reviewComments" [(ngModel)]="entry.reviewComments"></td>
+            
+            <td><button type="button" class="btn btn-warning" value="Update" (click)="updateRecord(entry)">Update</button></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+
+    <ng-template #popContent>
+        <table>
+         <!--   <tr><td>Doc Rec Id  :</td><td>{{performanceRecord.docRecPerformanceId}}</td></tr>-->
+            <tr><td>Type : </td><td>{{performanceRecord.type}}</td></tr>
+            <tr><td>Type Department Name : </td><td>{{performanceRecord.typeDepartmentName}}</td></tr>
+            <tr><td>Type No : </td><td>{{performanceRecord.typeNo}}</td></tr>
+            <tr><td>Type Purpose: </td><td>{{performanceRecord.typePurpose}}</td></tr>
+            <tr><td>Implemented On : </td><td>{{performanceRecord.implementedOn}}</td></tr>
+            <tr><td>Implemented By : </td><td>{{performanceRecord.implementedBy}}</td></tr>
+            <tr><td>File Location : </td><td>{{performanceRecord.fileLocation}}</td></tr>
+            <tr><td>Is Kpi Required : </td><td>{{performanceRecord.kpiRequired}}</td></tr>
+            <tr><td>Kpi Value Must Be : </td><td>{{performanceRecord.kpiValueMustBe}}</td></tr>
+            <tr><td>Retension Month : </td><td>{{performanceRecord.retensionMonth}}</td></tr>
+            <tr><td>Retained Location : </td><td>{{performanceRecord.retainedLocation}}</td></tr>
+            <tr><td>Active Status : </td><td>{{performanceRecord.active}}</td></tr>
+             
+        </table>
+    </ng-template>
+    
+    

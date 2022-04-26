@@ -1,0 +1,35 @@
+<div align="center">
+    <label><h2>Process</h2></label>
+</div>
+<div style="width: 90%; padding-left: 5%;">
+  
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Process Name</th>
+                <th>Name Id</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th *ngIf="!newEntry.active">InActive Date</th>
+                <th *ngIf="!newEntry.active">InActive Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> * </td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.processName" name="processName"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.processNameId" name="processNameId"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.processDescription" name="processDescription"></td>
+                <td><input type="checkbox"  [(ngModel)]="newEntry.active" name="active"></td>
+                <td *ngIf="!newEntry.active"><input type="date" class="form-control" [(ngModel)]="newEntry.inactiveDate" name="inactiveDate"></td>
+                <td *ngIf="!newEntry.active"><input type="text" class="form-control" [(ngModel)]="newEntry.inactiveComments" name="inactiveComments"></td>
+                
+                <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>

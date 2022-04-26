@@ -1,0 +1,35 @@
+<div>
+    <form>
+        <table class="table table-striped tablepadding">
+            <thead>
+                <th>#</th>
+                <th>Year</th>
+                <th>Frequency (in Months)</th>
+                <th>UOM</th>
+                <th>Target Value</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><mat-icon>add_circle</mat-icon></td>
+                    <td><input type="date" class="form-control" name="kpiYear" [(ngModel)]="newRecord.kpiFromMonthYear"></td>
+                    <td><select class="form-control" name="kpiMonths" [(ngModel)]="newRecord.kpiFrequnecyMonth">
+                            <option [value]="retensionMonth" *ngFor="let retensionMonth of retensionMonths">{{retensionMonth}}</option>
+                        </select>
+                    </td>
+                    <td><select class="form-control" name="Uom" [(ngModel)]="newRecord.kpiUom">
+                                <option value="KGS">KGS</option>
+                                <option value="NOS">NOS</option>
+                                <option value="MM">MM</option>
+                        </select></td>
+                    <td><input type="text" class="form-control" name="targetValue" [(ngModel)]="newRecord.kpiTargetValue"></td>
+                    <td><button type="button" class="btn btn-success" name="save" (click)="save()">Save</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </form>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>
+
+

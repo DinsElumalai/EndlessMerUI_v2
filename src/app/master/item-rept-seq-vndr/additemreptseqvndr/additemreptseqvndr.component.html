@@ -1,0 +1,56 @@
+<div align="center">
+    <label><h2>Item Receipe Sequence Vendor</h2></label>
+</div>
+<div style="width: 90%; padding-left: 5%;">
+  
+    <table class="table" >
+        <tbody>
+            <tr>
+                <td>ItemType </td><input type="text" class="form-control" [(ngModel)]="newEntry.itemType" name="itemType">
+                <td>Item</td><input type="text" class="form-control" [(ngModel)]="newEntry.item" name="item">
+                <td>ReceipeVendor</td><input type="text" class="form-control" [(ngModel)]="newEntry.receipeVendor" name="receipeVendor">
+            </tr><br>
+            <tr>
+                <td>ProcessStageNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageNo" name="ProcessStageNo">
+                <td>ProcessStageName</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageName" name="processStageName">
+                <td>ProcessStageFor</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageFor" name="processStageFor">
+            </tr><br>
+            <tr>
+                <td>ProcessSequenceNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.processSequenceNo" name="processSequenceNo">
+                <td>ProcessName</td><input type="text" class="form-control" [(ngModel)]="newEntry.processName" name="processName">
+                <td>ChildItemFor</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemFor" name="childItemFor">
+            </tr><br>
+            <tr>
+                <td>ChildItemSequenceNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemSequenceNo" name="childItemSequenceNo">
+                <td>ChildItemId</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemId" name="childItemId">
+                <td>ChildItemPriority</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemPriority" name="childItemPriority">
+            </tr><br>
+            <tr>
+                <td>UOM</td><input type="text" class="form-control" [(ngModel)]="newEntry.uom" name="uom">
+                <td>ConsumptionForQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.consumptionForQty" name="consumptionForQty">
+                <td>ConsumptionQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.consumptionQty" name="consumptionQty">
+            </tr><br>
+            <tr>
+                <td>FinishQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.finishQty" name="finishQty">
+                <td>BalanceQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.balanceQty" name="balanceQty">
+                <td>VendorId</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorId" name="vendorId">
+            </tr><br>
+            <tr>
+                <td>HSCCodeId</td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnCodeId" name="hsnCodeId">
+                <td>VendorItemNumber</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNumber" name="vendorItemNumber">
+                <td>VendorItemName</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemName" name="vendorItemName">
+            </tr><br>
+            <tr>
+                <td>VendorItemNameId</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNameId" name="vendorItemNameId">
+                <td>VendorPriority</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorPriority" name="vendorPriority">
+                <td>StockSharingPrecentage</td><input type="text" class="form-control" [(ngModel)]="newEntry.stockSharingPrecentage" name="stockSharingPrecentage">
+            </tr>
+            <tr>
+                <td></td><td></td><td></td><td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+                <td></td><td></td>
+            </tr>
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>

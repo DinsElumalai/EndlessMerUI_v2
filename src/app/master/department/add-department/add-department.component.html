@@ -1,0 +1,23 @@
+<div style="width: 98%;">
+  
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Department Name</th>
+                <th>Department Name Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> * </td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.departmentName" name="departmentName"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.departmentNameId" name="departmentNameId"></td>
+                <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>

@@ -1,0 +1,35 @@
+<div>
+    <form>
+        <table class="table table-striped tablepadding">
+            <thead>
+                <th>#</th>
+                <th>Issue No</th>
+                <th>Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>InActivated Date</th>
+                <th>InActivated comments</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><mat-icon>add_circle</mat-icon></td>
+                    <td><input type="text" class="form-control" name="issueNo" [(ngModel)]="newRecord.issueNo"></td>
+                    <td><input type="date" class="form-control" name="issueDate" [(ngModel)]="newRecord.issueDate"></td>
+                    <td><input type="text" class="form-control" name="issueReason" [(ngModel)]="newRecord.issueReason"></td>
+                    <td><select class="form-control" name="issueIsActive" [(ngModel)]="newRecord.active" style="width:60px;">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                        </select></td>
+                    <td><input type="date" class="form-control" name="issueinActivatedDate" [(ngModel)]="newRecord.inActivedDate" [disabled]="newRecord.active"></td>
+                    <td><input type="text" class="form-control" name="issueinActivatedReason" [(ngModel)]="newRecord.inActivatedComments" [disabled]="newRecord.active"></td>
+                    <td><button type="button" class="btn btn-success" name="save" (click)="save()">Save</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </form>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>
+
+

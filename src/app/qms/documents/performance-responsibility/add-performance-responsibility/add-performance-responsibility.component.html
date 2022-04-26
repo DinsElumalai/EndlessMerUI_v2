@@ -1,0 +1,45 @@
+<div>
+    
+    <form>
+        <table class="table table-striped tablepadding">
+            <thead>
+                <th>#</th>
+                <th>From Date</th>
+                <th>Responsible Employee</th>
+                <th>Approver</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><mat-icon>add_circle</mat-icon></td>
+                    
+                    <td><input type="date" class="form-control" name="rsFromDate" [(ngModel)]="newRecord.responsibilityFromDate"></td>
+                    <td>
+                        <input class="form-control" list="employees" name="responsibileEmp" id="responsibileEmp" [(ngModel)]="newRecord.responsibilityEmployeeId" >
+                        <datalist id="employees">
+                        <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                            {{employee.employeeOurCode}} - {{employee.employeeName}}
+                        </option>
+                        </datalist></td>
+                    <td>
+                        <input class="form-control" list="employees" name="approverEmp" id="approverEmp" [(ngModel)]="newRecord.responsibilityApproverEmployeeId" >
+                        <datalist id="employees">
+                        <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                            {{employee.employeeOurCode}} - {{employee.employeeName}}
+                        </option>
+                        </datalist></td>
+                    <td><button type="button" class="btn btn-success" name="save" (click)="save()">Save</button></td>
+                </tr>
+                <tr>
+                    <td></td><td></td>
+                    <td>{{helperService.getEmployee(newRecord.responsibilityEmployeeId, employees)}}</td>
+                    <td>{{helperService.getEmployee(newRecord.responsibilityApproverEmployeeId, employees)}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>
+
+

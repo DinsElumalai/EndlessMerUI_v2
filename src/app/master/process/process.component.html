@@ -1,0 +1,40 @@
+<app-addprocess></app-addprocess>
+<div style="width: 90%; padding-left: 5%;">
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Process Name</th>
+                <th>Name Id</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>InactiveDate</th>
+                <th>InactiveComments</th>
+                <th>Created By</th>
+                <th>Created On</th>
+                <th>Updated By</th>
+                <th>Updated On</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let entry of entries ; let i=index;">
+                <td> {{entries.length-i}} </td>
+                <td>{{entry.processName}}</td>
+                <td>{{entry.processNameId}}</td>
+                <td>{{entry.processDescription}}</td>
+                <td>{{entry.active}}</td>
+                <td>{{entry.inactiveDate}}</td>
+                <td>{{entry.inactiveComments}}</td>
+                <td>{{entry.createdBy}}</td>
+                <td>{{entry.createdDate | date: 'dd - MM - yyyy'}}</td>
+                <td>{{entry.updatedBy}}</td>
+                <td>{{entry.updatedDate | date: 'dd - MM - yyyy'}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="delete(entry.processId)" value="Delete">Delete</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>

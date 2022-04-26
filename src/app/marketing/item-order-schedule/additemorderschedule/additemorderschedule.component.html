@@ -1,0 +1,41 @@
+<div align="center">
+    <label><h2>Item Order Schedule</h2></label>
+</div>
+<div style="width: 90%; padding-left: 5%;">
+  
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Schedule For</th>
+                <th>ItemOrder Id</th>
+                <th>Item Id</th>
+                <th>Vendor Schedule Reference</th>
+                <th>Schedule Type</th>
+                <th>Schedule Date</th>
+                <th>Schedule Qty In Nos</th>
+                <th>Schedule Qty In Kgs</th>
+                <th>Schedule ValidUpto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> * </td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleFor" name="scheduleFor"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.itemOrderId" name="itemOrderId"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.itemId" name="itemId"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorScheduleReference" name="vendorScheduleReference"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleType" name="scheduleType"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleDate" name="scheduleDate"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleQtyInNos" name="scheduleQtyInNos"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleQtyInKgs" name="scheduleQtyInKgs"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleValidUpto" name="scheduleValidUpto"></td>
+                
+                <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>

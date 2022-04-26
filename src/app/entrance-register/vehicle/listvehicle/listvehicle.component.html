@@ -1,0 +1,90 @@
+<br>
+<form class="row g-3">
+    <div class="col-auto">
+      <input type="date" class="form-control" name="getDetailDate" [(ngModel)]="getDetailDate">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+    </div>
+    
+</form>
+<hr>
+<app-addvehicle></app-addvehicle>
+<div *ngIf="isShowList">
+<div style="width: 98%;">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Vehicle No</th>
+            <th>Entry Date</th>
+            <th>Entry Time</th>
+            <th>Exit Date</th>
+            <th>Exit Time</th>
+            <th>Entrance Reg. Our Code</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let entry of entries ; let i=index;">
+        <td>{{entries.length-i}}</td>
+        <td>{{entry.vehicleNo}}</td>
+        <td>{{entry.entryTime | date:'dd-MM-yyyy'}}</td>
+        <td>{{entry.entryTime  | date:'HH:mm:ss'}}</td>
+        <td>{{entry.exitTime | date:'dd-MM-yyyy'}}</td>
+        <td>{{entry.exitTime | date:'HH:mm:ss'}}</td>
+        <td>{{entry.entranceRegisterOurCode}}</td>
+        <td *ngIf="updateRole"><button type="button" class="btn btn-warning" value="Update" (click)="openVerticallyCentered(content, entry)">Update</button></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Additional Vechile Information</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+      <div align="center">
+          <form>
+              <table>
+                  <tbody>
+                      <tr><td>&nbsp; Vechile No  &nbsp;</td><td class="center-align bold-text">{{updateEntry.vehicleNo}}</td>
+                          <td>&nbsp; Entry Time &nbsp;</td><td class="center-align bold-text">{{updateEntry.entryTime | date:'dd-MM-yyyy HH:mm:ss'}}</td> </tr>
+                      <tr><td></td><td>{{updateEntry.vendorName}}</td></tr>
+                     <tr><td>&nbsp; Transporter &nbsp;</td><td><input class="form-control" list="vendors" #vndr name="vendorName" id="vendorName" [(ngModel)]="vndrSelectedValue" (change)="showVendorName(vndr.value)" >
+                                                                    <datalist id="vendors">
+                                                                    <option *ngFor="let vendor of vendors" [ngValue]="vendor" >
+                                                                        {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                                                                    </option>
+                                                                    </datalist></td>
+                          <td>&nbsp; Driver Name &nbsp;</td><td><input type="text" class="form-control" name="upDriverName" [(ngModel)]="updateEntry.personName"></td></tr>
+                      <tr><td></td><td>{{helperService.getVendor(updateEntry.vendorName, vendors)}}</td></tr>
+                      <tr><td>&nbsp; Contact No 1 &nbsp;</td><td><input type="text" class="form-control" name="upContactNo1" [(ngModel)]="updateEntry.contactNo1"></td>
+                          <td>&nbsp; Contact No 2 &nbsp;</td><td><input type="text" class="form-control" name="upContactNo2" [(ngModel)]="updateEntry.contactNo2"></td></tr>
+                      <tr><td>&nbsp; Address 1 &nbsp;</td><td><input type="text" class="form-control" name="address1" [(ngModel)]="updateEntry.address1"></td>
+                          <td>&nbsp; Address 2 &nbsp;</td><td><input type="text" class="form-control" name="address2" [(ngModel)]="updateEntry.address2"></td></tr>
+                      <tr *ngIf="showExitTimeOption" class="border"><td>&nbsp; Exit Date &nbsp;</td><td><input type="date" class="form-control" name="upExitDate" id="upExitDate" [(ngModel)]="exitDate" [readonly]="setEtime"></td>
+                          <td>&nbsp; Exit Time &nbsp;</td><td><input type="time" class="form-control" name="upExitTime" [(ngModel)]="exitTime" [readonly]="setEtime"></td>
+                          <td><input type="checkbox" name="upExitdttm" [(ngModel)]="upExitdttm" (change)="setExitTime()"/> Do you want to update Date?</td>
+                        </tr>
+                      <tr *ngIf="showUpdatedExitTime"><td>&nbsp;Entered Exit Date &nbsp;</td>
+                          <td class="center-align bold-text">
+                              {{updateEntry.exitTime | date:'dd-MM-yyyy' }} &nbsp;
+                                                    {{updateEntry.exitTime | date: 'hh:mm:ss'}}</td> 
+                          </tr>
+                       <tr><td>&nbsp; Purpose &nbsp;</td><td><input type="textarea" class="form-control" name="upPurpose" [(ngModel)]="updateEntry.purpose"></td>
+                           <td>&nbsp; Comments &nbsp;</td><td><input type="textarea" class="form-control" name="upComments" [(ngModel)]="updateEntry.comments"></td></tr>
+                  </tbody>
+              </table>
+          </form>
+          <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+        </ngb-alert>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateEntranceRegister(updateEntry); ">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click'); getDetails();">Close</button>
+    </div>
+</ng-template>

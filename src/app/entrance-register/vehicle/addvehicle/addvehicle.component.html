@@ -1,0 +1,73 @@
+<div style="width: 98%;">
+  
+        <table class="table table-striped tablepadding">
+            <thead>    <tr>
+                    <th> #</th>
+                    <th>Vehicle No</th>
+                    <th>Entry Date</th>
+                    <th>Entry Time</th>
+              <!--      <th>Exit Date</th>
+                    <th>Exit Time</th>
+                -->    
+                    <th> Save </th>
+                </tr>
+            </thead><tbody>
+                <tr>
+                    <td> * </td>
+                    <td><input type="text" class="form-control" [(ngModel)]="newEntry.vehicleNo" name="IvehicleNo"></td>
+                    <td class="center-align bold-text" style="width:100px">{{entryDate | date: 'dd-MM-yyyy'}} </td>
+                    <td><input type="time" class="form-control" [(ngModel)]="entryTime" name="IentryTime" [readonly]="setEtime"></td>
+              <!--      <td><input type="date" class="form-control" [(ngModel)]="exitDate" name="IexitDate"></td>
+                    <td><input type="time" class="form-control" [(ngModel)]="newEntry.exitTime" name="IexitTime"></td>
+               -->     <td><input type="checkbox" id="setETime" name="setETime" (change)="setEntryTime()" [(ngModel)]="setEtimeOption" > Set Entry Time</td>
+                    <td><button type="button" class="btn btn-success" value="Save" (click)="openVerticallyCentered(content);" name="savebtn">Save</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+        </ngb-alert>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Additional Vechile Information</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div align="center">
+        <form>
+            <table>
+                <tbody>
+                    <tr><td></td><td></td><td></td><td>{{newEntry.vendorName}}</td></tr>
+                    <tr><td>&nbsp; Vechile No  &nbsp;</td><td><input type="text" class="form-control" name="vehicleNo" [(ngModel)]="newEntry.vehicleNo"></td>
+                        <td>&nbsp; Transporter &nbsp;</td><td><input class="form-control" list="vendors" #vndr name="vendorName" id="vendorName" [(ngModel)]="vndrSelectedValue" (change)="showVendorName(vndr.value)" >
+                                                            <datalist id="vendors">
+                                                            <option *ngFor="let vendor of vendors" [ngValue]="vendor" >
+                                                                {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                                                            </option>
+                                                            </datalist></td></tr>
+                    <tr><td>&nbsp; Driver Name &nbsp;</td><td><input type="text" class="form-control" name="driverName" [(ngModel)]="newEntry.personName"></td>
+                        <td>&nbsp; Contact No 1 &nbsp;</td><td><input type="number" class="form-control" name="contactNo1" [(ngModel)]="newEntry.contactNo1"></td></tr>
+                    <tr><td>&nbsp; Contact No 2 &nbsp;</td><td><input type="number" class="form-control" name = "contactNo2" [(ngModel)]="newEntry.contactNo2"></td>
+                        <td>&nbsp; Address 1 &nbsp;</td><td><input type="text" class="form-control" name="address1" [(ngModel)]="newEntry.address1"></td></tr>
+                    <tr><td>&nbsp; Address 2 &nbsp;</td><td><input type="text" class="form-control" name="adderss2" [(ngModel)]="newEntry.address2"></td>
+                        <td>&nbsp; Our Code</td> <td><input type="text" class="form-control" [(ngModel)]="newEntry.entranceRegisterOurCode" name="IOurCode" readonly></td>
+                    </tr>
+               <!--     <tr><td>&nbsp; Exit Date &nbsp;</td><td><input type="date" class="form-control" name="exitTime"[(ngModel)]="exitDate"></td>
+                        <td>&nbsp; Exit Time &nbsp;</td><td><input type="time" class="form-control" name="exitTime" [(ngModel)]="exitTime"></td></tr>
+             -->       <tr><td>&nbsp; Purpose &nbsp;</td><td><input type="textarea" class="form-control" name="purpose" [(ngModel)]="newEntry.purpose"></td>
+                        <td>&nbsp; Comments &nbsp;</td><td><input type="textarea" class="form-control" name="comments" [(ngModel)]="newEntry.comments"></td></tr>
+                </tbody>
+            </table>
+        </form>
+      </div>
+      <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

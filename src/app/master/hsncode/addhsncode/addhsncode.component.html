@@ -1,0 +1,31 @@
+<div align="center">
+    <label><h2>HSN Code</h2></label>
+</div>
+<div style="width: 90%; padding-left: 5%;">
+  
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Rate %</th>
+                <th>Rate From</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> * </td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnCode" name="hsnCode"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnDescription" name="hsnDescription"></td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnRate" name="hsnRate"></td>
+                <td><input type="date" class="form-control" [(ngModel)]="newEntry.hsnRateFrom" name="hsnRateFrom"></td>
+                
+                <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>

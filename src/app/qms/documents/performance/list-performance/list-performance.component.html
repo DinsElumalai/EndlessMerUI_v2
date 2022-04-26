@@ -1,0 +1,136 @@
+<br>
+<h2>Performance</h2>
+<br>
+<form class="row g-3">
+    <div class="col-auto">
+        
+        <input class="form-control" list="perfRecords" name="getDetailId" id="getDetailId" [(ngModel)]="getDetailId" >
+        <datalist id="perfRecords">
+        <option *ngFor="let perfRecord of performanceRecords" [value]="perfRecord.typeNo" >
+            {{perfRecord.typeNo}} - {{perfRecord.type}}
+        </option>
+        </datalist>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+    </div>
+    <div class="col justify-content-end" style="text-align:right;">
+        <button type="submit" class="btn btn-primary mb-3" (click)="showCreate = !showCreate">Create Performance</button>
+    </div>
+</form>
+<hr>
+<div>
+    <div *ngIf="showCreate">
+        <app-add-performance></app-add-performance>
+    </div>
+</div>
+<div *ngIf="isShowList">
+<div style="width: 98%;">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Implemented On</th>
+            <th>Type No</th>
+            <th>Type</th>
+            <th>Type Department Name</th>
+            <th>Type Purpose</th>
+            <th>Retension Month</th>
+            <th>Retained Location</th>
+            <th>Kpi Required</th>
+            <th>Kpi Value MustBe</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let entry of entries ; let i=index;">
+        <td>{{entries.length-i}}</td>
+        <td>{{entry.implementedOn}}</td>
+        <td>{{entry.typeNo}}</td>
+        <td>{{entry.type}}</td>
+        <td>{{entry.typeDepartmentName}}</td>
+        <td>{{entry.typePurpose}}</td>
+        <td>{{entry.retensionMonth}}</td>
+        <td>{{entry.retainedLocation}}</td>
+        <td>{{entry.kpiRequired}}</td>
+        <td>{{entry.kpiValueMustBe}}</td>
+        
+        <td><button type="button" class="btn btn-warning" value="Update" (click)="openVerticallyCentered(content, entry)">Update</button></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Document Performance Information</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div align="center">
+            <form>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Type</td><td><select class="form-control" name="type" [(ngModel)]="updateEntry.type">
+                                                <option value="Document">Document</option>
+                                                <option value="Record">Record</option>
+                                             </select></td>
+                            <td>Type Department</td><td><input type="text" class="form-control" name="typeDept" [(ngModel)]="updateEntry.typeDepartmentName"></td>
+                            <td>Type No</td><td><input type="text" class="form-control" name="typeNo" [(ngModel)]="updateEntry.typeNo"></td>
+                        </tr>
+                        <tr>
+                            <td>Type Purpose</td><td><input type="text" class="form-control" name="typePurpose" [(ngModel)]="updateEntry.typePurpose"></td>
+                            <td>Implemented By <p>{{helperService.getEmployee(updateEntry.implementedBy, employees)}}</p></td><td>
+                                <input class="form-control" list="employees" name="implementedBy" id="implementedBy" [(ngModel)]="updateEntry.implementedBy" >
+                                <datalist id="employees">
+                                <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                                    {{employee.employeeOurCode}} - {{employee.employeeName}}
+                                </option>
+                                </datalist></td>
+                            <td>Implmented On</td><td><input type="date" class="form-control" name="implementedOn" [(ngModel)]="updateEntry.implementedOn"></td>
+                        </tr>
+                        <tr>
+                            <td>File Location</td><td><input type="text" class="form-control" name="fileLocation" [(ngModel)]="updateEntry.fileLocation"></td>
+                            <td>KPI Required ?</td><td>
+                                            <select class="form-control" name="kpiRequired" [(ngModel)]="updateEntry.kpiRequired">
+                                                    <option value="true">Yes</option>
+                                                    <option value="false">No</option>
+                                            </select>
+                                         </td>
+                             <td>For Best KPI, Value must be</td><td>
+                                            <select class="form-control" name="kpiValueMustBe" [(ngModel)]="updateEntry.kpiValueMustBe">
+                                                    <option value="Higher">Higher</option>
+                                                    <option value="Lower">Lower</option>
+                                            </select>
+                                         </td>
+                        </tr>
+                        <tr>
+                            <td>Rentension Month</td><td><select class="form-control" name="retensionMonth" [(ngModel)]="updateEntry.retensionMonth">
+                                                                <option [value]="retensionMonth" *ngFor="let retensionMonth of retensionMonths">{{retensionMonth}}</option>
+                                                        </select></td>
+                            <td>Retained Location</td><td><input type="text" class="form-control" name="retainedLocation" [(ngModel)]="updateEntry.retainedLocation"></td>
+                            <td>Is Active</td><td>
+                                                <select class="form-control" name="isActive" [(ngModel)]="updateEntry.active">
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                </select>
+                                            </td>
+                        </tr>
+                        <tr>
+                            <td>InActived Date</td><td><input type="date" class="form-control" name="inActivatedDate" [(ngModel)]="updateEntry.inActivatedDate" [disabled]="updateEntry.active"></td>
+                            <td>Comments</td><td><input type="text" class="form-control" name="inActivatedComments" [(ngModel)]="updateEntry.inActivatedComments" [disabled]="updateEntry.active"></td>
+                         </tr>
+                      </tbody>
+                </table>
+            </form>
+            <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+          </ngb-alert>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="updateRecord(updateEntry); ">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+      </div>
+  </ng-template>

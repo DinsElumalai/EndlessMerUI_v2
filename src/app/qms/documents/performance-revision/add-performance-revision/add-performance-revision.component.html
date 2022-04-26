@@ -1,0 +1,36 @@
+<div>
+    <form>
+        <table class="table table-striped tablepadding">
+            <thead>
+                <th>#</th>
+                <th>Revison No</th>
+                <th>Date</th>
+                <th>Reason</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><mat-icon>add_circle</mat-icon></td>
+                    <td><input type="text" class="form-control" name="revisionNo" [(ngModel)]="newRecord.revisionNo"></td>
+                    <td><input type="date" class="form-control" name="revisionDate" [(ngModel)]="newRecord.revisionDate"></td>
+                    <td><input type="text" class="form-control" name="revisionReason" [(ngModel)]="newRecord.revisionReason"></td>
+                    <td><button type="button" class="btn btn-success" name="save" (click)="save()">Save</button></td>
+                </tr>
+                <!--For List-->
+                <!--
+                <tr>
+                    <td>*</td>
+                    <td><input type="text" class="form-control" name="revisionNo"></td>
+                    <td><input type="date" class="form-control" name="revisionDate"></td>
+                    <td><input type="text" class="form-control" name="revisionReason"></td>
+                    <td><button type="button" class="btn btn-warning" name="update">Update</button></td>
+                </tr>
+                -->
+                <!--List ends-->
+            </tbody>
+        </table>
+    </form>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>
+
+

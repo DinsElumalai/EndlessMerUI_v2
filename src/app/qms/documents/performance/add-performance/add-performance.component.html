@@ -1,0 +1,62 @@
+<div>
+    <h2>Create Performance</h2>
+    <form>
+        <table class="table table-striped tablepadding">
+            <tbody>
+                <tr>
+                    <td>Type</td><td><select class="form-control" name="type" [(ngModel)]="newRecord.type">
+                                        <option value="Document">Document</option>
+                                        <option value="Record">Record</option>
+                                     </select></td>
+                    <td>Type Department</td><td><input type="text" class="form-control" name="typeDept" [(ngModel)]="newRecord.typeDepartmentName"></td>
+                    <td>Type No</td><td><input type="text" class="form-control" name="typeNo" [(ngModel)]="newRecord.typeNo"></td>
+                </tr>
+                <tr>
+                    <td>Type Purpose</td><td><input type="text" class="form-control" name="typePurpose" [(ngModel)]="newRecord.typePurpose"></td>
+                    <td>Implemented By <p>{{helperService.getEmployee(newRecord.implementedBy, employees)}}</p></td><td>
+                            <input class="form-control" list="employees" name="implementedBy" id="implementedBy" [(ngModel)]="newRecord.implementedBy" >
+                            <datalist id="employees">
+                            <option *ngFor="let employee of employees" [value]="employee.employeeId" >
+                                {{employee.employeeOurCode}} - {{employee.employeeName}}
+                            </option>
+                            </datalist></td>
+                    <td>Implmented On</td><td><input type="date" class="form-control" name="implementedOn" [(ngModel)]="newRecord.implementedOn"></td>
+                </tr>
+                <tr>
+                    <td>File Location</td><td><input type="text" class="form-control" name="fileLocation" [(ngModel)]="newRecord.fileLocation"></td>
+                    <td>KPI Required ?</td><td>
+                                    <select class="form-control" name="kpiRequired" [(ngModel)]="newRecord.kpiRequired">
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                    </select>
+                                 </td>
+                     <td>For Best KPI, Value must be</td><td>
+                                    <select class="form-control" name="kpiValueMustBe" [(ngModel)]="newRecord.kpiValueMustBe">
+                                            <option value="Higher">Higher</option>
+                                            <option value="Lower">Lower</option>
+                                    </select>
+                                 </td>
+                </tr>
+                <tr>
+                    <td>Rentension Month</td><td><select class="form-control" name="retensionMonth" [(ngModel)]="newRecord.retensionMonth">
+                                                        <option [value]="retensionMonth" *ngFor="let retensionMonth of retensionMonths">{{retensionMonth}}</option>
+                                                </select></td>
+                    <td>Retained Location</td><td><input type="text" class="form-control" name="retainedLocation" [(ngModel)]="newRecord.retainedLocation"></td>
+                    <td>Is Active</td><td>
+                                        <select class="form-control" name="isActive" [(ngModel)]="newRecord.active">
+                                                <option value="true">Yes</option>
+                                                <option value="false">No</option>
+                                        </select>
+                                    </td>
+                </tr>
+                <tr>
+                    <td>InActived Date</td><td><input type="date" class="form-control" name="inActivatedDate" [(ngModel)]="newRecord.inActivatedDate" [disabled]="newRecord.active"></td>
+                    <td>Comments</td><td><input type="text" class="form-control" name="inActivatedComments" [(ngModel)]="newRecord.inActivatedComments" [disabled]="newRecord.active"></td>
+                    <td></td><td><button type="button" class="btn btn-success" (click)="save()">Save</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+</ngb-alert>

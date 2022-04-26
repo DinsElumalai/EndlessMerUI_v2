@@ -1,0 +1,33 @@
+<div style="width: 98%;">
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th>Dept. Name</th>
+                <th>Dept. Name Id</th>
+                <th>Created Client</th>
+                <th>Created By</th>
+                <th>Created On</th>
+                <th>Updated By</th>
+                <th>Updated On</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let entry of entries ; let i=index;">
+                <td> {{entries.length-i}} </td>
+                <td>{{entry.departmentName}}</td>
+                <td>{{entry.departmentNameId}}</td>
+                <td>{{entry.createdClient}}</td>
+                <td>{{entry.createdBy}}</td>
+                <td>{{entry.createdDate | date: 'dd - MM - yyyy'}}</td>
+                <td>{{entry.updatedBy}}</td>
+                <td>{{entry.updatedDate | date: 'dd - MM - yyyy'}}</td>
+                <td><button type="button" class="btn btn-danger" (click)="delete(entry.departmentId)" value="Delete">Delete</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>

@@ -1,0 +1,104 @@
+<div>
+    <br>
+    <h2>Upload File</h2>
+    <br>
+    <form>
+        <table class="table table-striped tablepadding">
+            <thead>
+                <th>#</th>
+                <th>Performance Record</th>
+                <th>View Info</th>
+                <th>Type</th>
+                <th>File</th>
+                <th>Comments</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><mat-icon>add_circle</mat-icon></td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newRecord.docRecPerId" name="rsPerfId" (change)="getPerformanceRecord()">
+                            <option *ngFor="let perfRecord of performanceRecords" [value]="perfRecord.docRecPerformanceId" >
+                                {{perfRecord.docRecPerformanceId}} - {{perfRecord.type}} - {{perfRecord.implementedOn}}
+                            </option>
+                        </select>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-secondary me-2" placement="left" [ngbPopover]="popContent" triggers="click:blur"> Verify Info</button></td>
+                    <td><select class="form-control" name="fileType" [(ngModel)]="newRecord.fileType">
+                                <option value="Master">Master</option>
+                                <option value="Signed">Signed</option>
+                                <option value="Format">Format</option>
+                        </select></td>
+                    <td><input type="file" id="file" class="form-group" name="perffile" [(ngModel)]="newRecord.filePath"></td>
+                    <td><input type="text" class="form-control" name="fileComments" [(ngModel)]="newRecord.comments"></td>
+                    <td><button type="button" class="btn btn-success" name="save" (click)="save()">Save</button></td>
+                </tr>
+                <!--For List-->
+                <!--
+                <tr>
+                    <td>*</td>
+                    <td><select class="form-control" name="fileType">
+                                <option value="Master">Master</option>
+                                <option value="Signed">Signed</option>
+                                <option value="Format">Format</option>
+                        </select></td>
+                    <td><input type="file" id="file" class="form-group"></td>
+                    <td><input type="text" class="form-control" name="fileComments"></td>
+                    <td><button type="button" class="btn btn-warning" name="update">Update</button></td>
+                </tr>
+                -->
+                <!--List ends-->
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div>
+   <!-- <img src="sampleImg"/>-->
+   {{sampleImg}}
+   
+</div>
+
+<ng-template #popContent>
+    <table>
+     <!--   <tr><td>Doc Rec Id  :</td><td>{{performanceRecord.docRecPerformanceId}}</td></tr>-->
+        <tr><td>Type : </td><td>{{performanceRecord.type}}</td></tr>
+        <tr><td>Type Department Name : </td><td>{{performanceRecord.typeDepartmentName}}</td></tr>
+        <tr><td>Type No : </td><td>{{performanceRecord.typeNo}}</td></tr>
+        <tr><td>Type Purpose: </td><td>{{performanceRecord.typePurpose}}</td></tr>
+        <tr><td>Implemented On : </td><td>{{performanceRecord.implementedOn}}</td></tr>
+        <tr><td>Implemented By : </td><td>{{performanceRecord.implementedBy}}</td></tr>
+        <tr><td>File Location : </td><td>{{performanceRecord.fileLocation}}</td></tr>
+        <tr><td>Is Kpi Required : </td><td>{{performanceRecord.kpiRequired}}</td></tr>
+        <tr><td>Kpi Value Must Be : </td><td>{{performanceRecord.kpiValueMustBe}}</td></tr>
+        <tr><td>Retension Month : </td><td>{{performanceRecord.retensionMonth}}</td></tr>
+        <tr><td>Retained Location : </td><td>{{performanceRecord.retainedLocation}}</td></tr>
+        <tr><td>Active Status : </td><td>{{performanceRecord.active}}</td></tr>
+         
+    </table>
+</ng-template>
+
+
+<input id="inputFile" type="file" onchange="convertToBase64();" />
+
+<script type="text/javascript">
+    function convertToBase64() {
+        //Read File
+        var selectedFile = document.getElementById("inputFile").files;
+        //Check File is not Empty
+        if (selectedFile.length > 0) {
+            // Select the very first file from list
+            var fileToLoad = selectedFile[0];
+            // FileReader function for read the file.
+            var fileReader = new FileReader();
+            var base64;
+            // Onload of file read the file content
+            fileReader.onload = function(fileLoadedEvent) {
+                base64 = fileLoadedEvent.target.result;
+                // Print data in console
+                console.log(base64);
+            };
+            // Convert data to base64
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+</script>

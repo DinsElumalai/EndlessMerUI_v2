@@ -1,0 +1,79 @@
+<div style="width: 98%;">
+  
+    <table class="table table-striped tablepadding">
+        <thead>    <tr>
+                <th> #</th>
+                <th>Employee ID</th>
+                <th>Entry Date</th>
+                <th>Entry Time</th>
+                <th></th>
+                <th> Save </th>
+            </tr>
+        </thead><tbody>
+            <tr>
+                <td> * </td>
+                <td><input class="form-control" #emp list="employees" name="IemployeId" id="employeeName" [(ngModel)]="empSelectedValue" (change)="showName(emp.value)">
+                    <datalist id="employees"  >
+                      <option *ngFor="let employee of employees" [ngValue]="employee" >
+                        {{employee.employeeOurCode}} - {{employee.employeeName}}
+                      </option>
+                    </datalist></td>
+                <td style="width :100px">{{entryDate | date: 'dd-MM-yyyy'}} </td>
+                <td><input type="time" class="form-control" [(ngModel)]="entryTime" name="IentryTime" [readonly]="setEtime"></td>
+            <!--    <td><input type="date" class="form-control" [(ngModel)]="exitDate" name="IexitDate"></td>
+                <td><input type="time" class="form-control" [(ngModel)]="newEntry.exitTime" name="IexitTime"></td>
+            -->   
+            <td><input type="checkbox" id="setETime" name="setETime" (change)="setEntryTime()" [(ngModel)]="setEtimeOption"> Set Entry Time</td>
+             <td><button type="button" class="btn btn-success" value="Save" (click)="openVerticallyCentered(content)" name="savebtn">Save</button></td>
+            </tr>
+           
+            
+        </tbody>
+    </table>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+</div>
+
+<ng-template #content let-modal>
+<div class="modal-header">
+  <h4 class="modal-title">Additional Employee Information</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <div align="center">
+    <form>
+        <table>
+            <tbody>
+                <tr>
+                    <td></td><td>{{helperService.getEmployee(newEntry.personName, employees)}}</td>
+                    <td></td><td></td>
+                </tr>
+                <tr><!--<td>&nbsp; Employee Name  &nbsp;</td><td><input type="text" class="form-control" name="employeeName" [(ngModel)]="newEntry.personName"></td>-->
+                    <td>&nbsp; Vendor Name &nbsp;</td><td><input type="text" class="form-control" name="vendorName" [(ngModel)]="newEntry.vendorName" readonly></td>
+                    <td>&nbsp; Vehicle No &nbsp;</td><td><input type="text" class="form-control" name="vehicleNo" [(ngModel)]="newEntry.vehicleNo"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp; Entry Category &nbsp;</td><td><select class="form-control" [(ngModel)]="newEntry.entryCategory" name="entryCategory">
+                                                                <option value="Regular"> Regular</option>
+                                                                <option value="OnDuty">On Duty</option>
+                                                                <option value="Special"> Special</option>
+                                                            </select>
+                                                    </td>
+                                                    <td>&nbsp; Gloves &nbsp;</td><td><input type="textarea" class="form-control" name="purpose" [(ngModel)]="newEntry.gloves"></td>                            
+                </tr>
+             
+                <tr><td>&nbsp; Snacks &nbsp;</td><td><input type="textarea" class="form-control" name="snacks" [(ngModel)]="newEntry.snacks"></td>
+                    <td>&nbsp; Comments &nbsp;</td><td><input type="textarea" class="form-control" name="comments" [(ngModel)]="newEntry.comments"></td></tr>
+                
+            </tbody>
+        </table>
+    </form>
+  </div>
+  <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+</ngb-alert>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+  <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+</div>
+</ng-template>
