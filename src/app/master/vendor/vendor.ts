@@ -32,6 +32,8 @@ export class Vendor
     registeredate : Date;
     active : boolean;
     inActivatedDate : Date;
+    prefixSpecial : string;
+    extraCopy : string;
 }
 
 	

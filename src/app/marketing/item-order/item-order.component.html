@@ -1,2 +1,55 @@
-<app-additemorder></app-additemorder>
-<p>item-order works!</p>
+
+<div class="fullDiv">
+
+    <form class="row g-3">
+        <div class="col-auto">
+          <input class="form-control" list="itemOrders" #itemOrderData name="filterItem" id="filterItem" [(ngModel)]="filterItem" >
+          <datalist id="itemOrders">
+            <option *ngFor="let itemOrder of itemOrders" [ngValue]="itemOrder" >
+                {{itemOrder.orderNo}} - {{itemOrder.orderOurCode}}
+            </option>
+          </datalist>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="form-control filter-head" (click)="isCreate = !isCreate" >Create</button>
+        </div>
+    </form>
+
+    <div *ngIf="isCreate" >
+        <app-additemorder></app-additemorder>
+    </div>
+
+
+    <div class="tblDiv">
+        <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+        </ngb-alert>
+        <table class="table table-striped tablepadding">
+            <thead>    
+                <tr>
+                    <th> #</th>
+                    <th *ngFor="let entryFieldName of entryFieldNames">
+                       <p style="text-transform: capitalize;"> {{entryFieldName}}</p>
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let entry of entries ; let i=index;">
+                    <td> {{entries.length-i}} </td>
+                    <td *ngFor="let entryFieldName of entryFieldNames">
+                        {{getEntryValue(entry, entryFieldName)}}
+    
+                    </td>
+                    
+                    <td><button type="button" class="btn btn-danger" (click)="delete(entry.recipeVendorFlowId)" value="Delete">Delete</button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    

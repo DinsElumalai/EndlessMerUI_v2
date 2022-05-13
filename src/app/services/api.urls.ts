@@ -1,8 +1,8 @@
 
 export class ApiUrls
 {
-    static baseUrl = 'http://localhost:8080/api/';
-    //static baseUrl = window.location.href.substring(0,window.location.href.indexOf("mercuryMMS")) + "mmswebservice/api/";  //fetching from login component
+    //static baseUrl = 'http://localhost:9090/api/';
+    static baseUrl = window.location.href.substring(0,window.location.href.indexOf("mercuryMMS")) + "mmswebservice/api/";  //fetching from login component
 
     static appUrl = window.location.href.substring(0,window.location.href.lastIndexOf("/"));
     
@@ -28,10 +28,24 @@ export class ApiUrls
     //Vendor
     static vendorApi = ApiUrls.baseUrl + 'vendor';
     static vendorLastApi = ApiUrls.baseUrl + 'vendorlast';
+
+    static designationApi = ApiUrls.baseUrl + 'empdg';
+    static itemApi = ApiUrls.baseUrl + 'item';
+    static itemBySubTypeIdApi = ApiUrls.baseUrl + 'itembyst/';
+    static itemLastApi = ApiUrls.baseUrl + 'itemlast';
+    static itemTypeApi = ApiUrls.baseUrl + 'itemType';
+    static itemSubTypeApi = ApiUrls.baseUrl + 'itemsubtype';
+    static itemSubTypeByTypeIdApi = ApiUrls.baseUrl + 'itemstbytyid/';
+    static itemReptSeqVndrApi = ApiUrls.baseUrl + 'itemReptSeqVndr/';
+    
     //-----------------------------------------------------------------------------------
     //HR / Admin
     //------------------------------------------------------------------------------------
     //Marketing
+    static itemOrderApi = ApiUrls.baseUrl + 'itemOrder';
+    static itemOrderByVendorIdApi = ApiUrls.baseUrl + 'itemOrder/ordertovndrId/';
+    static itemOrderByItemIdApi = ApiUrls.baseUrl + 'itemOrder/itemId/';
+    static itemOrderScheduleApi = ApiUrls.baseUrl + 'itemOrderSchedule';
     //------------------------------------------------------------------------------------
     //Shores
     //------------------------------------------------------------------------------------

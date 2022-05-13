@@ -1,4 +1,52 @@
 
+<div style="width:70%;padding-left: 30%;">
 
+<form class="row g-3">
+    <div class="col-auto">
+      <input class="form-control" list="irvss" #ivrsData name="filterItem" id="filterItem" [(ngModel)]="filterItem" (change)="setFilterItem(ivrsData.value)" >
+      <datalist id="irvss">
+        <option *ngFor="let irvs of irvss" [ngValue]="irvs" >
+            {{getItemName(irvs).itemId}} - {{getItemName(irvs).itemNameId}}
+        </option>
+      </datalist>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="form-control filter-head" (click)="isCreate = !isCreate" >Create</button>
+    </div>
+</form>
+<div *ngIf="isCreate" >
 <app-additemreptseqvndr></app-additemreptseqvndr>
-<p>item-rept-seq-vndr works!</p>
+</div>
+<div style="width: 90%; padding-left: 5%;" class="scrollmenu">
+    <div style="overflow-x:scroll;">
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    <table class="table table-striped tablepadding">
+        <thead>    
+            <tr>
+                <th> #</th>
+                <th *ngFor="let entryFieldName of entryFieldNames">
+                   <p style="text-transform: capitalize;"> {{entryFieldName}}</p>
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let entry of entries ; let i=index;">
+                <td> {{entries.length-i}} </td>
+                <td *ngFor="let entryFieldName of entryFieldNames">
+                    {{getEntryValue(entry, entryFieldName)}}
+
+                </td>
+                
+                <td><button type="button" class="btn btn-danger" (click)="delete(entry.recipeVendorFlowId)" value="Delete">Delete</button></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </div>
+</div>
+</div>

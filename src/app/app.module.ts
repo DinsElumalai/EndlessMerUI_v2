@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-
-
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -123,6 +121,14 @@ import { AdditemdocumentComponent } from './finance/item-document/additemdocumen
 import { AddledgerComponent } from './finance/ledger/addledger/addledger.component';
 import { AdditemtransactionComponent } from './admin/item-transaction/additemtransaction/additemtransaction.component';
 import { AddprefixsetupspecialComponent } from './admin/prefixsetup-special/addprefixsetupspecial/addprefixsetupspecial.component';
+import { ItemTypeComponent } from './master/item-type/item-type.component';
+import { AddItemtypeComponent } from './master/itemType/add-itemtype/add-itemtype.component';
+import { ItemComponent } from './master/item/item.component';
+import { AddItemComponent } from './master/item/add-item/add-item.component';
+import { ItemSubtypeComponent } from './master/item-subtype/item-subtype.component';
+import { AddItemsubtypeComponent } from './master/itemSubtype/add-itemsubtype/add-itemsubtype.component';
+import { DesignationComponent } from './master/designation/designation.component';
+import { AddDesignationComponent } from './master/designation/add-designation/add-designation.component';
 
 @NgModule({
   declarations: [
@@ -224,6 +230,14 @@ import { AddprefixsetupspecialComponent } from './admin/prefixsetup-special/addp
     AddledgerComponent,
     AdditemtransactionComponent,
     AddprefixsetupspecialComponent,
+    ItemTypeComponent,
+    AddItemtypeComponent,
+    ItemComponent,
+    AddItemComponent,
+    ItemSubtypeComponent,
+    AddItemsubtypeComponent,
+    DesignationComponent,
+    AddDesignationComponent,
     
   ],
   imports: [

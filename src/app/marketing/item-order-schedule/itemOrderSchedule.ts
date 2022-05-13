@@ -12,9 +12,10 @@ export class ItemOrderSchedule
     itemOrderId : string;
     itemId : string;
     vendorScheduleReference : string;
+    scheduleVendor : string;
     scheduleType : string;
-    scheduleDate : Date;
-    scheduleQtyInNos : string;
-    scheduleQtyInKgs : string;
-    scheduleValidUpto : string;
+    scheduleDate : string;
+    scheduleNos : string;
+    scheduleKgs : string;
+    scheduleValidDate : string;
 }

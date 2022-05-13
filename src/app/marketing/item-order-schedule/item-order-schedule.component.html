@@ -1,5 +1,41 @@
-<app-additemorderschedule></app-additemorderschedule>
-<div style="width: 90%; padding-left: 5%;">
+
+<div class="fullDiv">
+
+    <form class="row g-3">
+        <div class="col-auto">
+          <input class="form-control" list="iossv" #iosvData name="filterVendor" id="filterVendor" [(ngModel)]="filterVendor" >
+          <datalist id="iossv">
+            <option *ngFor="let itemOrderSchedule of itemOrderSchedules" [value]="itemOrderSchedule.scheduleVendor" >
+                {{itemOrderSchedule.scheduleVendor}}
+            </option>
+          </datalist>
+        </div>
+        <div class="col-auto">
+            <input class="form-control" list="iosi" #iosiData name="filterItem" id="filterItem" [(ngModel)]="filterItem" >
+            <datalist id="iosi">
+              <option *ngFor="let itemOrderSchedule of itemOrderSchedules" [value]="itemOrderSchedule.itemId" >
+                  {{itemOrderSchedule.itemId}}
+              </option>
+            </datalist>
+        </div>
+        <div class="col-auto">
+            <input class="form-control" list="ioso" #iosoData name="filterOrderId" id="filterOrderId" [(ngModel)]="filterOrderId" >
+            <datalist id="ioso">
+              <option *ngFor="let itemOrderSchedule of itemOrderSchedules" [ngValue]="itemOrderSchedule.itemOrderId" >
+                  {{itemOrderSchedule.itemOrderId}}
+              </option>
+            </datalist>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
+        </div>
+    </form>
+
+    <div>
+        <app-additemorderschedule></app-additemorderschedule>
+    </div>
+
+<div class="tblDiv">
     <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
     </ngb-alert>
     <table class="table table-striped tablepadding">
@@ -7,7 +43,9 @@
             <tr>
                 <th> #</th>
                 <th>OrderScheduleOurCode</th>
-                <th>Schedule For</th>
+                <th>Schedule Vendor</th>
+                <th>Schedule For</th>                
+                <th>Item Id</th>
                 <th>ItemOrder Id</th>
                 <th>Vendor Schedule Reference</th>
                 <th>Schedule Type</th>
@@ -21,18 +59,20 @@
             <tr *ngFor = "let entry of entries ; let i=index;">
                 <td> {{entries.length-i}} </td>
                 <td>{{entry.orderScheduleOurCode}}</td>
+                <td>{{entry.scheduleVendor}}</td>
                 <td>{{entry.scheduleFor}}</td>
+                <td>{{entry.itemId}}</td>
                 <td>{{entry.itemOrderId}}</td>
                 <td>{{entry.vendorScheduleReference}}</td>
                 <td>{{entry.scheduleType}}</td>
                 <td>{{entry.scheduleDate | date: 'dd - MM - yyyy'}}</td>
-                <td>{{entry.scheduleQtyInNos}}</td>
-                <td>{{entry.scheduleQtyInKgs}}</td>
-                <td>{{entry.scheduleValidUpto}}</td>
+                <td>{{entry.scheduleNos}}</td>
+                <td>{{entry.scheduleKgs}}</td>
+                <td>{{entry.scheduleValidDate}}</td>
                 <td><button type="button" class="btn btn-danger" (click)="delete(entry.itemOrderScheduleId)" value="Delete">Delete</button></td>
             </tr>
             
         </tbody>
     </table>
-    
+</div>
 </div>

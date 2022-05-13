@@ -1,93 +1,249 @@
-<div align="center">
-    <label><h2>Item Order</h2></label>
-</div>
-<div style="width: 90%; padding-left: 10%;">
-  
-    <table class="table" >
+
+    <div align="center">
+        <label><h2>Item Order</h2></label>
+    </div>
+
+<div class="entry-table">
+    <table class="table">
         <tbody>
             <tr>
-                <td>OrderOurCode </td><input type="text" class="form-control" [(ngModel)]="newEntry.orderOurCode" name="orderOurCode">
-                <td>OrderFor</td><input type="text" class="form-control" [(ngModel)]="newEntry.orderFor" name="orderFor">
-                <td>OrderType</td><input type="text" class="form-control" [(ngModel)]="newEntry.orderType" name="orderType">
-                <td>OrderNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.orderNo" name="orderNo">
+                <td>Get Details By Order Our Code : </td>
+                <td><select class="form-control" [(ngModel)]="orderIdToLoad"  (change)="fillDataByOrderNo()" name="orderIdToLoad">
+                        <option *ngFor="let itemOrder of itemOrders" [value]="itemOrder.orderOurCode">
+                            {{itemOrder.orderOurCode}} - {{itemOrder.orderNo}}
+                        </option>
+                    </select>
+                </td>
+                <td><button type="button" class="form-control" name="removeFilter" (click)="refreshPage()">Remove Filter</button></td>
+         
+            </tr>
+            <tr>
+                <td>OrderOurCode </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.orderOurCode" name="orderOurCode"></td>
+                <td>OrderFor</td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.orderFor" name="orderFor">
+                            <option>Sales</option>
+                            <option>Purchase</option>
+                            <option>Job Work</option>
+                        </select>
+                    </td>
+                <td>OrderType</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.orderType" name="orderType">
+                        <option>Open</option>
+                        <option>One Time</option>
+                    </select>
+                </td>
+                <td>OrderNo</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.orderNo" name="orderNo"></td>
             </tr><br>
             <tr>
-                <td>OrderDate </td><input type="date" class="form-control" [(ngModel)]="newEntry.orderDate" name="orderDate">
-                <td>OrderRptIssueDate</td><input type="date" class="form-control" [(ngModel)]="newEntry.orderRptIssueDate" name="orderRptIssueDate">
-                <td>OrderEffectiveFromDate</td><input type="date" class="form-control" [(ngModel)]="newEntry.orderEffectiveFromDate" name="orderEffectiveFromDate">
-                <td>MultipleHsnRate</td><input type="text" class="form-control" [(ngModel)]="newEntry.multipleHsnRate" name="multipleHsnRate">
+                <td>OrderDate </td><td><input type="date" class="form-control" [(ngModel)]="newEntry.orderDate" name="orderDate"></td>
+                <td>OrderRptIssueDate</td><td><input type="date" class="form-control" [(ngModel)]="newEntry.orderRptIssueDate" name="orderRptIssueDate"></td>
+                <td>OrderEffectiveFromDate</td><td><input type="date" class="form-control" [(ngModel)]="newEntry.orderEffectiveFromDate" name="orderEffectiveFromDate"></td>
+                <td>MultipleHsnRate</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.multipleHsnRate" name="multipleHsnRate">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </td>
             </tr><br>
             <tr>
-                <td>OrderToVendorId </td><input type="text" class="form-control" [(ngModel)]="newEntry.orderToVendorId" name="orderToVendorId">
-                <td>DeliveryToVendorId</td><input type="text" class="form-control" [(ngModel)]="newEntry.deliveryToVendorId" name="deliveryToVendorId">
-                <td>ModeOfDispatch</td><input type="text" class="form-control" [(ngModel)]="newEntry.modeOfDispatch" name="modeOfDispatch">
-                <td>DeliveryTerms</td><input type="text" class="form-control" [(ngModel)]="newEntry.deliveryTerms" name="deliveryTerms">
+                <td>OrderToVendorId </td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.orderToVendorId" name="orderToVendorId" (change)="getItemIdFromRecptSeqVndrs()">
+                            <option *ngFor="let vendor of vendors" [value]="vendor.vendorId">
+                                    {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                            </option>
+                        </select>
+                    </td>
+                <td>DeliveryToVendorId</td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.deliveryToVendorId" name="deliveryToVendorId">
+                            <option *ngFor="let vendor of vendors" [value]="vendor.vendorId">
+                                    {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                            </option>
+                        </select>
+                    </td>
+                <td>ModeOfDispatch</td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.modeOfDispatch" name="modeOfDispatch">
+                            <option>By Road</option>
+                            <option>By Parcel</option>
+                            <option>By Air</option>
+                            <option>By Train</option>
+                        </select>
+                    </td>
+                <td>DeliveryTerms</td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.deliveryTerms" name="deliveryTerms">
+                            <option>Ex-Works</option>
+                            <option>On Destination</option>
+                        </select>
+                    </td>
             </tr><br>
             <tr>
-                <td>PaymentTerms </td><input type="text" class="form-control" [(ngModel)]="newEntry.paymentTerms" name="paymentTerms">
-                <td>ContactMail</td><input type="text" class="form-control" [(ngModel)]="newEntry.contactMail" name="contactMail">
-                <td>ContactNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.contactNo" name="contactNo">
-                <td>ContactPerson</td><input type="text" class="form-control" [(ngModel)]="newEntry.contactPerson" name="contactPerson">
+                <td>PaymentTerms </td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.paymentTerms" name="paymentTerms">
+                            <option>Immediate</option>
+                            <option>15Days</option>
+                            <option>45Days</option>
+                            <option>60Days</option>
+                        </select>
+                    </td>
+                <td>ContactMail</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.contactMail" name="contactMail"></td>
+                <td>ContactNo</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.contactNo" name="contactNo"></td>
+                <td>ContactPerson</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.contactPerson" name="contactPerson"></td>
             </tr><br>
             <tr>
-                <td>ScheduleVariationPercentage </td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleVariationPercentage" name="scheduleVariationPercentage">
-                <td>TcsPercentage</td><input type="text" class="form-control" [(ngModel)]="newEntry.tcsPercentage" name="tcsPercentage">
-                <td>PackagingCalcType</td><input type="text" class="form-control" [(ngModel)]="newEntry.packagingCalcType" name="packagingCalcType">
-                <td>PackagingRateType</td><input type="text" class="form-control" [(ngModel)]="newEntry.packagingRateType" name="packagingRateType">
+                <td>ScheduleVariationPercentage </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleVariationPercentage" name="scheduleVariationPercentage"></td>
+                <td>TcsPercentage</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.tcsPercentage" name="tcsPercentage"></td>
+                <td>PackagingCalcType</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.packagingCalcType" name="packagingCalcType">
+                        <option>On Total Value</option>
+                        <option>On Item Value</option>
+                    </select>
+                </td>
+                <td>PackagingRateType</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.packagingRateType" name="packagingRateType">
+                        <option>Nos</option>
+                        <option>Kgs</option>
+                        <option>Fixed</option>
+                    </select>
+                </td>
             </tr><br>
             <tr>
-                <td>PackagingRate </td><input type="text" class="form-control" [(ngModel)]="newEntry.packagingRate" name="packagingRate">
-                <td>FreightCalcType</td><input type="text" class="form-control" [(ngModel)]="newEntry.freightCalcType" name="freightCalcType">
-                <td>FreightRateType</td><input type="text" class="form-control" [(ngModel)]="newEntry.freightRateType" name="freightRateType">
-                <td>FreightRate</td><input type="text" class="form-control" [(ngModel)]="newEntry.freightRate" name="freightRate">
+                <td>PackagingRate </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.packagingRate" name="packagingRate"></td>
+                <td>FreightCalcType</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.freightCalcType" name="freightCalcType">
+                        <option>On Total Value</option>
+                        <option>On Item Value</option>
+                    </select>
+                </td>
+                <td>FreightRateType</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.freightRateType" name="freightRateType">
+                        <option>Nos</option>
+                        <option>Kgs</option>
+                        <option>Fixed</option>
+                    </select>
+                </td>
+                <td>FreightRate</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.freightRate" name="freightRate"></td>
             </tr><br>
             <tr>
-                <td>PFCalcType </td><input type="text" class="form-control" [(ngModel)]="newEntry.pfCalcType" name="pfCalcType">
-                <td>PFRateType</td><input type="text" class="form-control" [(ngModel)]="newEntry.pfRateType" name="pfRateType">
-                <td>PFRate</td><input type="text" class="form-control" [(ngModel)]="newEntry.pfRate" name="pfRate">
-                <td>ItemTypeId</td><input type="text" class="form-control" [(ngModel)]="newEntry.itemTypeId" name="itemTypeId">
+                <td>PFCalcType </td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.pfCalcType" name="pfCalcType">
+                        <option>On Total Value</option>
+                        <option>On Item Value</option>
+                    </select>
+                </td>
+                <td>PFRateType</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.pfRateType" name="pfRateType">
+                        <option>Nos</option>
+                        <option>Kgs</option>
+                        <option>Fixed</option>
+                    </select>
+                </td>
+                <td>PFRate</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.pfRate" name="pfRate"></td>
+                <td>ItemTypeId</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.itemTypeId" name="itemTypeId">
+                        <option *ngFor="let itemType of itemTypes" [value]="itemType.itemTypeId">
+                                {{itemType.itemTypeId}} - {{itemType.itemTypeName}}
+                        </option>
+                    </select>
+                </td>
             </tr><br>
             <tr>
-                <td>ItemId </td><input type="text" class="form-control" [(ngModel)]="newEntry.itemId" name="itemId">
-                <td>ProcessStageNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageNo" name="processStageNo">
-                <td>RcptVendorFlowId</td><input type="text" class="form-control" [(ngModel)]="newEntry.rcptVendorFlowId" name="rcptVendorFlowId">
-                <td>VendorItemNumber</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNumber" name="vendorItemNumber">
+                <td>ItemId </td>
+                <td>
+                    <input class="form-control" list="items" #ivrsData name="itemId" id="itemId" [(ngModel)]="newEntry.itemId" (change)="fillDetailsByItemId()" >
+                    <datalist id="items">
+                        <option *ngFor="let irsvItemId of itemReptSeqVndrItemIds" [value]="irsvItemId">
+                            {{getRecptSeqVndrsByItemId(irsvItemId).vendorItemName}} - {{getRecptSeqVndrsByItemId(irsvItemId).vendorItemNameId}}
+                    </option>
+                    </datalist>
+                </td>
+                <td>ProcessStageNo</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.processStageNo" (change)="setDetailsByProcessStageNos()" name="processStageNo">
+                        <option>-- Select --</option>
+                        <option *ngFor="let processStageNo of irsvProcessStageNos" [value]="processStageNo">
+                                {{processStageNo}}
+                        </option>
+                    </select>
+                </td>
+                <td>RcptVendorFlowId</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.recipeVendorFlowId" name="recipeVendorFlowId" readonly></td>
+                <td>VendorItemNumber</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNumber" name="vendorItemNumber"></td>
             </tr><br>
             <tr>
-                <td>VendorItemName </td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemName" name="vendorItemName">
-                <td>vendorItemNameId</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNameId" name="vendorItemNameId">
-                <td>OrderLineNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.orderLineNo" name="orderLineNo">
-                <td>OrderNos</td><input type="text" class="form-control" [(ngModel)]="newEntry.orderNos" name="orderNos">
+                <td>VendorItemName </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemName" name="vendorItemName"></td>
+                <td>vendorItemNameId</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNameId" name="vendorItemNameId"></td>
+                <td>OrderLineNo</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.orderLineNo" name="orderLineNo"></td>
+                <td>OrderNos</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.orderNos" name="orderNos"></td>
             </tr><br>
             <tr>
-                <td>OrderKgs </td><input type="text" class="form-control" [(ngModel)]="newEntry.orderKgs" name="orderKgs">
-                <td>PrecisionNosDigit</td><input type="text" class="form-control" [(ngModel)]="newEntry.precisionNosDigit" name="precisionNosDigit">
-                <td>PrecisionKgsDigit</td><input type="text" class="form-control" [(ngModel)]="newEntry.precisionKgsDigit" name="precisionKgsDigit">
-                <td>UOM</td><input type="text" class="form-control" [(ngModel)]="newEntry.uom" name="uom">
+                <td>OrderKgs </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.orderKgs" name="orderKgs"></td>
+                <td>PrecisionNosDigit</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.precisionNosDigit" name="precisionNosDigit"></td>
+                <td>PrecisionKgsDigit</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.precisionKgsDigit" name="precisionKgsDigit"></td>
+                <td>UOM</td>
+                    <td>
+                        <select class="form-control" [(ngModel)]="newEntry.uom" name="uom">
+                            <option>Kgs</option>
+                            <option>Nos</option>
+                        </select>
+                    </td>
             </tr><br>
             <tr>
-                <td>UnitPriceUom </td><input type="text" class="form-control" [(ngModel)]="newEntry.unitPriceUom" name="unitPriceUom">
-                <td>DiscountPrecentage</td><input type="text" class="form-control" [(ngModel)]="newEntry.discountPrecentage" name="discountPrecentage">
-                <td>JobworkRedPercentage</td><input type="text" class="form-control" [(ngModel)]="newEntry.jobworkRedPercentage" name="jobworkRedPercentage">
-                <td>HSNSACodeId</td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaCodeId" name="hsnsaCodeId">
+                <td>UnitPriceUom </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.unitPriceUom" name="unitPriceUom"></td>
+                <td>DiscountPrecentage</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.discountPrecentage" name="discountPrecentage"></td>
+                <td>JobworkRedPercentage</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.jobworkRedPercentage" name="jobworkRedPercentage"></td>
+                <td>HSNSACodeId</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.hsnsaCodeId" name="hsnsaCodeId" (change)="fillHsnDetails()">
+                        <option *ngFor="let hsnCode of hsnCodes" [value]="hsnCode.hsnId">
+                                {{hsnCode.hsnCode}} - {{hsnCode.hsnDescription}}
+                        </option>
+                    </select>
+                </td>
             </tr><br>
             <tr>
-                <td>HSNSACode </td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaCode" name="hsnsaCode">
-                <td>HSNSADescription</td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaDescription" name="hsnsaDescription">
-                <td>HSNSARatePercentage</td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaRatePercentage" name="hsnsaRatePercentage">
-                <td>HSNSARateEffectiveFrom</td><input type="date" class="form-control" [(ngModel)]="newEntry.hsnsaRateEffectiveFrom" name="hsnsaRateEffectiveFrom">
+                <td>HSNSACode </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaCode" name="hsnsaCode" readonly></td>
+                <td>HSNSADescription</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaDescription" name="hsnsaDescription" readonly></td>
+                <td>HSNSARatePercentage</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnsaRatePercentage" name="hsnsaRatePercentage" readonly></td>
+                <td>HSNSARateEffectiveFrom</td><td><input type="date" class="form-control" [(ngModel)]="newEntry.hsnsaRateEffectiveFrom" name="hsnsaRateEffectiveFrom" readonly></td>
             </tr><br>
             <tr>
-                <td>OrderItemWtGms </td><input type="text" class="form-control" [(ngModel)]="newEntry.orderItemWtGms" name="orderItemWtGms">
-                <td>VendorItemWtGms</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemWtGms" name="vendorItemWtGms">
-                <td>FinishedItemWtGms</td><input type="text" class="form-control" [(ngModel)]="newEntry.finishedItemWtGms" name="finishedItemWtGms">
-                <td>ConsumeItemWtGms</td><input type="text" class="form-control" [(ngModel)]="newEntry.consumeItemWtGms" name="consumeItemWtGms">
+                <td>OrderItemWtGms </td><td><input type="text" class="form-control" [(ngModel)]="newEntry.orderItemWtGms" name="orderItemWtGms"></td>
+                <td>VendorItemWtGms</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemWtGms" name="vendorItemWtGms"></td>
+                <td>FinishedItemWtGms</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.finishedItemWtGms" name="finishedItemWtGms"></td>
+                <td>ConsumeItemWtGms</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.consumeItemWtGms" name="consumeItemWtGms"></td>
             </tr><br>
             <tr>
-                <td>OrderItemApprovalStatus </td><input type="text" class="form-control" [(ngModel)]="newEntry.orderItemApprovalStatus" name="orderItemApprovalStatus">
-                <td>OrderItemStatus</td><input type="text" class="form-control" [(ngModel)]="newEntry.orderItemStatus" name="orderItemStatus">
-                <td>SpecialInstruction</td><input type="text" class="form-control" [(ngModel)]="newEntry.specialInstruction" name="specialInstruction">
-                <td>Comments</td><input type="text" class="form-control" [(ngModel)]="newEntry.comments" name="comments">
+                <td>OrderItemApprovalStatus </td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.orderItemApprovalStatus" name="orderItemApprovalStatus">
+                        <option>WIP</option>
+                        <option>Pending for Approval</option>
+                        <option>Approved</option>
+                    </select>
+                </td>
+                <td>OrderItemStatus</td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.orderItemStatus" name="orderItemStatus">
+                        <option>Active</option>
+                        <option>On Hold</option>
+                        <option>Closed</option>
+                    </select>
+                </td>
+                <td>SpecialInstruction</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.specialInstruction" name="specialInstruction"></td>
+                <td>Comments</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.comments" name="comments"></td>
             </tr><br>
             
             <tr>

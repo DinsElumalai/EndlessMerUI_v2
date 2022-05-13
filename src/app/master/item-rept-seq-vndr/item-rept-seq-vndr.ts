@@ -1,6 +1,6 @@
 export class ItemReptSeqVndr
 {
-    rcptVndrFlowId : string;
+    recipeVendorFlowId : string;
     createdClient : string;
     createdBy : string;
     createdDate : Date;
@@ -8,28 +8,28 @@ export class ItemReptSeqVndr
     updatedDate : Date;
 
     itemType : string;
-    item : string;
+    item : string = "";
     receipeVendor : string;
     processStageNo : string;
     processStageName : string;
     processStageFor : string;
     processSequenceNo : string;
     processName : string;
-    childItemFor : string;
-    childItemSequenceNo : string;
-    childItemId : string;
-    childItemPriority : string;
+    processFor : string;
+    subItemSequenceNo : string;
+    subItemId : string;
+    subItemPriority : string;
     uom : string;
     consumptionForQty : string;
     consumptionQty : string;
     finishQty : string;
     balanceQty : string;
-    vendorId : string;
+    processVendor : string;
     hsnCodeId : string;
     vendorItemNumber : string;
     vendorItemName : string;
     vendorItemNameId : string;
     vendorPriority : string;
-    stockSharingPrecentage : string;
+    processSharingPrecentage : string;
     
 }

@@ -6,47 +6,158 @@
     <table class="table" >
         <tbody>
             <tr>
-                <td>ItemType </td><input type="text" class="form-control" [(ngModel)]="newEntry.itemType" name="itemType">
-                <td>Item</td><input type="text" class="form-control" [(ngModel)]="newEntry.item" name="item">
-                <td>ReceipeVendor</td><input type="text" class="form-control" [(ngModel)]="newEntry.receipeVendor" name="receipeVendor">
+                <td>ItemType</td><td>
+                    <select [(ngModel)]="newEntry.itemType" class="form-control" name="itemType">
+                        <option *ngFor="let itemType of itemTypes" [value]="itemType.itemTypeId"> 
+                            {{itemType.itemTypeId}} - {{itemType.itemTypeName}}
+                        </option>
+                    </select>
+                </td>
+                <td>Item</td>
+                <td>
+                    <input class="form-control" list="items" #ivrsData name="item" id="item" [(ngModel)]="newEntry.item" (change)="setDetails()" >
+                    <datalist id="items">
+                        <option *ngFor="let item of items" [ngValue]="item"> 
+                            {{item.itemOurCode}} - {{item.itemName}} - {{item.itemId}}
+                        </option>
+                    </datalist>
+                </td>
+                <td>ReceipeVendor</td>
+                <td>
+                    <select [(ngModel)]="newEntry.receipeVendor" class="form-control" name="receipeVendor">
+                        <option *ngFor="let vendor of receipeVendors" [value]="vendor.vendorId"> 
+                            {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                        </option>
+                    </select>
+                </td>    
             </tr><br>
             <tr>
-                <td>ProcessStageNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageNo" name="ProcessStageNo">
-                <td>ProcessStageName</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageName" name="processStageName">
-                <td>ProcessStageFor</td><input type="text" class="form-control" [(ngModel)]="newEntry.processStageFor" name="processStageFor">
+                <td>ProcessStageNo</td>
+                <td>
+                    <select [(ngModel)]="newEntry.processStageNo" name="processStageNo" class="form-control">
+                        <option *ngFor="let num of counter(26);let i=index;" [value]="i">
+                            {{i}}
+                        </option>
+                    </select>
+                </td>
+                <td>ProcessStageName</td>
+                <td>
+                    <input class="form-control" list="processes" #ivrsData name="processStageName" id="processStageName" [(ngModel)]="newEntry.processStageName"/>
+                    <datalist id="processes">
+                        <option *ngFor="let process of processes" [value]="process.processId"> 
+                                {{process.processId}} - {{process.processName}}
+                        </option>
+                    </datalist>
+                </td> 
+                <td>ProcessStageFor</td>
+                <td>
+                    <select [(ngModel)]="newEntry.processStageFor" class="form-control" name="processStageFor">
+                        <option> Sales</option>
+                        <option> Purchase</option>
+                        <option> Manufacturing</option>
+                    </select>
+                </td>
+                </tr><br>
+            <tr>
+                <td>ProcessSequenceNo</td>
+                <td><input type="text" class="form-control" [(ngModel)]="newEntry.processSequenceNo" name="processSequenceNo">
+                    
+                </td> 
+                <td>ProcessName</td><td>
+                    <select [(ngModel)]="newEntry.processName" class="form-control" name="processName">
+                        <option *ngFor="let process of processes" [value]="process.processId"> 
+                            {{process.processId}} - {{process.processName}}
+                        </option>
+                    </select>
+                </td>
+                <td>ProcessFor</td>
+                <td>
+                    <select [(ngModel)]="newEntry.processFor" class="form-control" name="subItemFor">
+                        <option> Assembly</option>
+                        <option> Raw Material</option>
+                        <option> Processing</option>
+                        <option> Consumables</option>
+                    </select>
+                </td>
+                </tr><br>
+            <tr>
+                <td *ngIf="newEntry.processFor == 'Assembly'">SubItemSequenceNo</td>
+                <td *ngIf="newEntry.processFor == 'Assembly'">
+                        <select [(ngModel)]="newEntry.subItemSequenceNo" name="subItemSequenceNo" class="form-control">
+                            <option *ngFor="let num of counter(26);let i=index;" [value]="i">
+                                {{i}}
+                            </option>
+                        </select>
+                </td>
+                <td>SubItemId</td>
+                <td>
+                    <input class="form-control" list="subItemIds" #ivrsData name="subItemId" id="subItemId" [(ngModel)]="newEntry.subItemId" >
+                    <datalist id="subItemIds">
+                        <option *ngFor="let subItem of subItems" [value]="subItem.itemId"> 
+                            {{subItem.itemOurCode}} - {{subItem.itemName}}
+                        </option>
+                    </datalist>
+                </td>
+                <td>SubItemPriority</td>
+                <td>
+                    <select [(ngModel)]="newEntry.subItemPriority" name="subItemPriority" class="form-control">
+                        <option *ngFor="let num of counter(6);let i=index;">
+                            {{i}}
+                        </option>
+                    </select>
+                </td>
+               </tr><br>
+            <tr>
+                <td>UOM</td>
+                    <td>
+                        <select [(ngModel)]="newEntry.uom" class="form-control" name="uom">
+                            <option> GMS</option>
+                            <option> MM</option>
+                            <option> Nos</option>
+                        </select>
+                    </td>
+                <td>ConsumptionForQty</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.consumptionForQty" name="consumptionForQty"></td>
+                <td>ConsumptionQty</td><td><input type="text" class="form-control" (change)="setDetails()" [(ngModel)]="newEntry.consumptionQty" name="consumptionQty"></td>
             </tr><br>
             <tr>
-                <td>ProcessSequenceNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.processSequenceNo" name="processSequenceNo">
-                <td>ProcessName</td><input type="text" class="form-control" [(ngModel)]="newEntry.processName" name="processName">
-                <td>ChildItemFor</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemFor" name="childItemFor">
+                <td>FinishQty</td><td><input type="text" class="form-control" (change)="setDetails()" [(ngModel)]="newEntry.finishQty" name="finishQty"></td>
+                <td>BalanceQty</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.balanceQty" name="balanceQty" readonly></td>
+                <td>Process Vendor</td>
+                <td>
+                    <select [(ngModel)]="newEntry.processVendor" class="form-control" name="processVendor">
+                        <option *ngFor="let vendor of vendors" [value]="vendor.vendorId"> 
+                            {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                        </option>
+                    </select>
+                </td>
             </tr><br>
             <tr>
-                <td>ChildItemSequenceNo</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemSequenceNo" name="childItemSequenceNo">
-                <td>ChildItemId</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemId" name="childItemId">
-                <td>ChildItemPriority</td><input type="text" class="form-control" [(ngModel)]="newEntry.childItemPriority" name="childItemPriority">
+                <td>HSCCodeId</td>
+                <td>
+                    <select [(ngModel)]="newEntry.hsnCodeId" class="form-control" name="hsnCodeId">
+                        <option *ngFor="let hsncode of hsnCodes" [value]="hsncode.hsnId"> 
+                            {{hsncode.hsnCode}} - {{hsncode.hsnDescription}}
+                        </option>
+                    </select>
+                </td>
+                <td>VendorItemNumber</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNumber" name="vendorItemNumber" ></td>
+                <td>VendorItemName</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemName" name="vendorItemName" ></td>
             </tr><br>
             <tr>
-                <td>UOM</td><input type="text" class="form-control" [(ngModel)]="newEntry.uom" name="uom">
-                <td>ConsumptionForQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.consumptionForQty" name="consumptionForQty">
-                <td>ConsumptionQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.consumptionQty" name="consumptionQty">
-            </tr><br>
-            <tr>
-                <td>FinishQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.finishQty" name="finishQty">
-                <td>BalanceQty</td><input type="text" class="form-control" [(ngModel)]="newEntry.balanceQty" name="balanceQty">
-                <td>VendorId</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorId" name="vendorId">
-            </tr><br>
-            <tr>
-                <td>HSCCodeId</td><input type="text" class="form-control" [(ngModel)]="newEntry.hsnCodeId" name="hsnCodeId">
-                <td>VendorItemNumber</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNumber" name="vendorItemNumber">
-                <td>VendorItemName</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemName" name="vendorItemName">
-            </tr><br>
-            <tr>
-                <td>VendorItemNameId</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNameId" name="vendorItemNameId">
-                <td>VendorPriority</td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorPriority" name="vendorPriority">
-                <td>StockSharingPrecentage</td><input type="text" class="form-control" [(ngModel)]="newEntry.stockSharingPrecentage" name="stockSharingPrecentage">
+                <td>VendorItemNameId</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNameId" name="vendorItemNameId" ></td>
+                <td>VendorPriority</td>
+                <td>
+                    <select [(ngModel)]="newEntry.vendorPriority" name="vendorPriority" class="form-control">
+                        <option *ngFor="let num of counter(6);let i=index;" [value]="i">
+                            {{i}}
+                        </option>
+                    </select>
+                </td>
+                <td>ProcessSharingPrecentage</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.processSharingPrecentage" name="processSharingPrecentage"></td>
             </tr>
             <tr>
-                <td></td><td></td><td></td><td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+                <td></td><td></td><td></td><td>
+                    <button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
                 <td></td><td></td>
             </tr>
         </tbody>

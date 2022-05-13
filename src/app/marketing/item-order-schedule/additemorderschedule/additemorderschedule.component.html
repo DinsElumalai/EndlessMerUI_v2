@@ -1,41 +1,78 @@
-<div align="center">
-    <label><h2>Item Order Schedule</h2></label>
-</div>
-<div style="width: 90%; padding-left: 5%;">
+
+<div>
   
     <table class="table table-striped tablepadding">
         <thead>    
             <tr>
-                <th> #</th>
                 <th>Schedule For</th>
-                <th>ItemOrder Id</th>
+                <th>Schedule Vendor</th>
                 <th>Item Id</th>
+                <th>ItemOrder Id</th>
                 <th>Vendor Schedule Reference</th>
-                <th>Schedule Type</th>
-                <th>Schedule Date</th>
-                <th>Schedule Qty In Nos</th>
-                <th>Schedule Qty In Kgs</th>
-                <th>Schedule ValidUpto</th>
+                
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td> * </td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleFor" name="scheduleFor"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.itemOrderId" name="itemOrderId"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.itemId" name="itemId"></td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.scheduleFor" name="scheduleFor">
+                        <option>Sales</option>
+                        <option>Purchase</option>
+                        <option>Job Work</option>
+                    </select>
+                </td>
+                <td>
+                    <select [(ngModel)]="newEntry.scheduleVendor" (change)="getItemOrderItemIds()" class="form-control" name="scheduleVendor">
+                        <option *ngFor="let itemOrder of scheduleVendorIOs" [value]="itemOrder"> 
+                            {{displayScheduleVendor(itemOrder)}}
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" list="items" #ivrsData name="itemId" id="itemId" [(ngModel)]="newEntry.itemId" (change)="getItemOrderOrderNos()" >
+                    <datalist id="items">
+                        <option *ngFor="let processStageNo of itemOrderItemIds" [value]="getItemIdByProcessStageNo(processStageNo)">
+                            {{getItemIdByProcessStageNo(processStageNo)}} - {{processStageNo}}
+                        </option>
+                    </datalist>
+                </td>
+                <td>
+                    <select class="form-control" [(ngModel)]="newEntry.itemOrderId" name="itemOrderId">
+                        <option *ngFor="let itemOrder of itemOrderOrderNos" [value]="itemOrder.itemOrderId">
+                            {{itemOrder.orderNo}}
+                        </option>
+                    </select>
+                </td>
                 <td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorScheduleReference" name="vendorScheduleReference"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleType" name="scheduleType"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleDate" name="scheduleDate"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleQtyInNos" name="scheduleQtyInNos"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleQtyInKgs" name="scheduleQtyInKgs"></td>
-                <td><input type="text" class="form-control" [(ngModel)]="newEntry.scheduleValidUpto" name="scheduleValidUpto"></td>
                 
-                <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
-            </tr>
+                </tr>
             
         </tbody>
+        <thead>
+            <th>Schedule Type</th>
+            <th>Schedule Date</th>
+            <th>Schedule Qty In Nos</th>
+            <th>Schedule Qty In Kgs</th>
+            <th>Schedule ValidUpto</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <select class="form-control" [(ngModel)]="newEntry.scheduleType" name="scheduleType">
+                    <option>Regular</option>
+                    <option>Extra</option>
+                    <option>Tentative</option>
+                </select>
+            </td>
+            <td><input type="date" class="form-control" [(ngModel)]="newEntry.scheduleDate" name="scheduleDate" (change)="setScheduleValidDate()" style="width:140px;"></td>
+            <td><input type="number" class="form-control" [(ngModel)]="newEntry.scheduleNos" name="scheduleQtyInNos"></td>
+            <td><input type="number" class="form-control" [(ngModel)]="newEntry.scheduleKgs" name="scheduleQtyInKgs"></td>
+            <td><input type="date" class="form-control" [(ngModel)]="newEntry.scheduleValidDate" name="scheduleValidUpto" style="width:140px;"></td>
+            <td><button type="button" class="btn btn-success" (click)="save()" value="Save">Save</button></td>
+        </tr>
+    </tbody>
     </table>
+    
     <ngb-alert #selfClosingAlert *ngIf="alertMsg" [type]="alertType" (closed)="alertMsg = false">{{alertMessage }}
     </ngb-alert>
 </div>

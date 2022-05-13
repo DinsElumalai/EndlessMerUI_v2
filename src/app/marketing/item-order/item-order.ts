@@ -39,7 +39,7 @@ export class ItemOrder
     itemTypeId : string;
     itemId : string;
     processStageNo : string;
-    rcptVendorFlowId : string;
+    recipeVendorFlowId : string;
     vendorItemNumber : string;
     vendorItemName : string;
     vendorItemNameId : string;

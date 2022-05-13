@@ -106,6 +106,19 @@ export class HelperService
     return year + '-' + month + '-' + day;
   }
 
+  getLastDayOfMonth(month : number, year : number)
+  {
+    let day = "31";
+    month += 1;
+    if(month == 4 || month == 6 || month == 9 || month == 11)
+      day = "30";
+    else if(month == 2)
+      day = "28";
+
+    let mon = month.toString().padStart(2, "0");
+    return year + '-' + mon + '-' + day;    
+  }
+
   //Get Current Time
   getCurrTime()
   {
@@ -152,6 +165,16 @@ export class HelperService
     },500);
   }
 
+  fixDecimal(num : string)
+  {
+    let decPt = num.indexOf(".") + 1;
+    let decVal = num.slice(decPt, decPt+4);
+    let realVal = num.substr(0, decPt);
+    let result = realVal + decVal;
+    //console.log(result);
+    return result;
+    
+  }
   
 
   dateTimeDiff(fromDate : any, toDate : any, mode : any)
