@@ -10,7 +10,7 @@ export class Vendor
     vendorOurCode : string;
     vendorName : string;
     vendorNameAc : string;
-    vendorNameId : string;
+    vendorNameId : string = "";
     vendorGivenCode : string;
     vendorType : string;
     vendorSubType : string;

@@ -3,7 +3,7 @@
 
 <form class="row g-3">
     <div class="col-auto">
-      <input class="form-control" list="irvss" #ivrsData name="filterItem" id="filterItem" [(ngModel)]="filterItem" (change)="setFilterItem(ivrsData.value)" >
+      <input class="form-control" list="irvss" #ivrsData name="filterItem" id="filterItem" [(ngModel)]="selectedFilterItem" (change)="setFilterItem(ivrsData.value)" >
       <datalist id="irvss">
         <option *ngFor="let irvs of irvss" [ngValue]="irvs" >
             {{getItemName(irvs).itemId}} - {{getItemName(irvs).itemNameId}}

@@ -83,6 +83,14 @@
                     <tr><td *ngIf="showUpdatedExitTime">Exit Date </td><td class="center-align bold-text" *ngIf="showUpdatedExitTime">{{updateEntry.exitTime | date:'dd - MM - yyyy'}} &nbsp;
                         {{updateEntry.exitTime | date:'HH : mm'}}</td>
                         <td>&nbsp; Gloves &nbsp;</td><td><input type="textarea" class="form-control" name="purpose" [(ngModel)]="updateEntry.gloves"></td></tr>
+                    <tr>
+                        <td>&nbsp; Breakfast M &nbsp;</td><td><input type="text" class="form-control" name="breakfastM" id="breakfastM" [(ngModel)]="updateEntry.breakfastM"/></td>
+                        <td>&nbsp; Breakfast N &nbsp;</td><td><input type="text" class="form-control" name="breakfastN" id="breakfastN" [(ngModel)]="updateEntry.breakfastN"/></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp; Lunch &nbsp;</td><td><input type="text" class="form-control" name="lunch" id="lunch" [(ngModel)]="updateEntry.lunch"/></td>
+                        <td>&nbsp; Dinner &nbsp;</td><td><input type="text" class="form-control" name="dinner" id="dinner" [(ngModel)]="updateEntry.dinner"/></td>
+                    </tr>
                     <tr><td>&nbsp; Snacks &nbsp;</td><td><input type="textarea" class="form-control" name="snacks" [(ngModel)]="updateEntry.snacks"></td>
                         <td>&nbsp; Comments &nbsp;</td><td><input type="textarea" class="form-control" name="comments" [(ngModel)]="updateEntry.comments"></tr>
                   </tbody>

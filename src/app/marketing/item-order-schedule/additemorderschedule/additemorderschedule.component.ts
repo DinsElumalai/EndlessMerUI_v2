@@ -6,6 +6,7 @@ import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 import { ItemOrderSchedule } from '../itemOrderSchedule';
 import { ItemOrder} from '../../item-order/item-order';
 import { Vendor } from '../../../master/vendor/vendor';
+import { Item } from '../../../master/item/item';
 
 @Component({
   selector: 'app-additemorderschedule',
@@ -30,7 +31,10 @@ export class AdditemorderscheduleComponent implements OnInit {
   itemOrderOrderNos : ItemOrder[];
   scheduleVendors : Vendor[];
   vendors : Vendor[];
+  items : Item[];
   processStageNo : string;
+  selectedItemId : string = "";
+  processStageNoandNames : any;
 
   @ViewChild('selfClosingAlert', {static: true}) selfClosingAlert: NgbAlert;
 
@@ -41,6 +45,7 @@ export class AdditemorderscheduleComponent implements OnInit {
 
     this.getItemOrders();
     this.getVendors();
+    this.getItems();
 
     this.newEntry.scheduleDate = this.helper.getCurrDate();
     this.setScheduleValidDate();
@@ -107,6 +112,26 @@ export class AdditemorderscheduleComponent implements OnInit {
     }, error => { console.log(error);});
   }
 
+  getItems()
+  {
+    this.apiHelper.getList(ApiUrls.itemApi).subscribe(data => {
+
+      this.items = data;
+    });
+  }
+
+  getItemName(itemId : string)
+  {
+    let items = this.items;
+    if(itemId != null && itemId != "" && items != null && items != [])
+    {
+      items = items.filter(item => {return item.itemId == Number(itemId)});
+      return items[0].itemNameId;
+    }
+    else
+      return "";
+  }
+
   displayScheduleVendor(vendorId : string)
   {
     let scheduleVendors = this.vendors;
@@ -116,7 +141,7 @@ export class AdditemorderscheduleComponent implements OnInit {
     scheduleVendors = scheduleVendors.filter( vnd => (vnd.vendorId).toString() == vendorId);
     if(scheduleVendors != null)
      {
-        result = scheduleVendors[0].vendorName + " - " + scheduleVendors[0].vendorNameId;
+        result =  scheduleVendors[0].vendorNameId + " - " + scheduleVendors[0].vendorName;
      }
     }
     return result;
@@ -129,6 +154,17 @@ export class AdditemorderscheduleComponent implements OnInit {
     this.newEntry.scheduleValidDate = this.helper.getLastDayOfMonth(month, year);
   
   }
+  getIdFromSelection(selectedVal : string)
+  {
+    if(selectedVal != null && selectedVal != "")
+    {
+      let valArr = selectedVal.split("-");
+      let result = valArr[valArr.length-1].trim();
+      return result;
+    }
+    return "";
+  }
+
 
   getScheduleVendorItemOrders()
   {
@@ -153,12 +189,12 @@ export class AdditemorderscheduleComponent implements OnInit {
         return itemOrder.orderToVendorId == this.newEntry.scheduleVendor;
       });
       let psItemOrders = new Set();
+
       for(let itemOrder of itemOrderItemIds)
       {
          psItemOrders.add(itemOrder.processStageNo);
       }
       this.itemOrderItemIds = psItemOrders;
-      
     }
   }
 

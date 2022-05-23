@@ -3,9 +3,17 @@
 
     <form class="row g-3">
         <div class="col-auto">
-          <input class="form-control" list="itemOrders" #itemOrderData name="filterItem" id="filterItem" [(ngModel)]="filterItem" >
-          <datalist id="itemOrders">
-            <option *ngFor="let itemOrder of itemOrders" [ngValue]="itemOrder" >
+        <input class="form-control" list="orderToVendorIds" #itemOrderData name="selectedOrderToVendorId" id="selectedOrderToVendorId" [(ngModel)]="selectedOrderToVendorId" placeholder="Order to Vendor Id" (change)="filteredOrderToVendorId = getSelectedFilterId(selectedOrderToVendorId); getDetails();"/>
+          <datalist id="orderToVendorIds">
+            <option *ngFor="let orderToVendorId of filteredOrderToVendorIds" >
+                 {{getVendorName(orderToVendorId)}} - {{orderToVendorId}}
+            </option>
+          </datalist>
+        </div>
+          <div class="col">
+          <input class="form-control" list="orderOurCodes" #itemOrderData name="selectedrOrderOurCode" id="selectedrOrderOurCode" [(ngModel)]="selectedrOrderOurCode" placeholder = "Order Our Code" (change)="filteredrOrderOurCode = getSelectedFilterId(selectedrOrderOurCode); getDetails();"/>
+          <datalist id="orderOurCodes">
+            <option *ngFor="let itemOrder of filteredrOrderOurCodes" >
                 {{itemOrder.orderNo}} - {{itemOrder.orderOurCode}}
             </option>
           </datalist>

@@ -40,6 +40,11 @@ export class EntranceRegister
     isVerified : boolean = false;
     verifiedBy : string = "";
 
+    breakfastM : string ="";
+    lunch : string = "";
+    dinner : string = "";
+    breakfastN : string = "";;
+
 }
 
 

@@ -91,15 +91,13 @@ export class AddempregComponent implements OnInit {
     {
       if(this.setEtimeOption)
       {
-        this.setEtime = false;
         this.entryTime = this.helperService.getCurrTime();
-      }
-      else
-      {
-        this.setEtime = true;
+        if(this.sessionHelper.checkUserRole("rl_entrReg_emp_entryedit"))
+          this.setEtime = false;
       }
     }
 
+    
     getEmployees()
     {
       this.helperService.getEmployees().subscribe(data => 

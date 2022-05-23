@@ -53,7 +53,7 @@
                     <td>
                         <select class="form-control" [(ngModel)]="newEntry.orderToVendorId" name="orderToVendorId" (change)="getItemIdFromRecptSeqVndrs()">
                             <option *ngFor="let vendor of vendors" [value]="vendor.vendorId">
-                                    {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                                    {{vendor.vendorNameId}} - {{vendor.vendorName}}
                             </option>
                         </select>
                     </td>
@@ -61,7 +61,7 @@
                     <td>
                         <select class="form-control" [(ngModel)]="newEntry.deliveryToVendorId" name="deliveryToVendorId">
                             <option *ngFor="let vendor of vendors" [value]="vendor.vendorId">
-                                    {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                                    {{vendor.vendorNameId}} - {{vendor.vendorName}}
                             </option>
                         </select>
                     </td>
@@ -163,10 +163,10 @@
             <tr>
                 <td>ItemId </td>
                 <td>
-                    <input class="form-control" list="items" #ivrsData name="itemId" id="itemId" [(ngModel)]="newEntry.itemId" (change)="fillDetailsByItemId()" >
+                    <input class="form-control" list="items" #ivrsData name="itemId" id="itemId" [(ngModel)]="selectedItemId" (change)="newEntry.itemId = getIdFromSelection(selectedItemId);fillDetailsByItemId()" >
                     <datalist id="items">
-                        <option *ngFor="let irsvItemId of itemReptSeqVndrItemIds" [value]="irsvItemId">
-                            {{getRecptSeqVndrsByItemId(irsvItemId).vendorItemName}} - {{getRecptSeqVndrsByItemId(irsvItemId).vendorItemNameId}}
+                        <option *ngFor="let irsvItemId of itemReptSeqVndrItemIds">
+                            {{getRecptSeqVndrsByItemId(irsvItemId).vendorItemNameId}} - {{getRecptSeqVndrsByItemId(irsvItemId).vendorItemName}} - {{irsvItemId}}
                     </option>
                     </datalist>
                 </td>

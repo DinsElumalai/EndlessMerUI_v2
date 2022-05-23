@@ -23,6 +23,7 @@ export class ItemReptSeqVndrComponent implements OnInit {
   entryFields : any ;
   entryFieldNames : any;
   filterItem : string = "";
+  selectedFilterItem : string = "";
   irvss : any;
   filterSelectedValue : string;
   items : Item[];

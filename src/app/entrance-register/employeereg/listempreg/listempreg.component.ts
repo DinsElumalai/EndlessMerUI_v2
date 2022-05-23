@@ -97,13 +97,10 @@ export class ListempregComponent implements OnInit {
     {
       if(this.upExitdttm)
       {
-        this.setEtime = false;
         this.exitTime = this.helperService.getCurrTime();
         this.exitDate = this.helperService.getCurrDate();
-      }
-      else
-      {
-        this.setEtime = true;
+        if(this.sessionHelper.checkUserRole("rl_entrReg_emp_exitedit"))
+          this.setEtime = false;
       }
     }
 

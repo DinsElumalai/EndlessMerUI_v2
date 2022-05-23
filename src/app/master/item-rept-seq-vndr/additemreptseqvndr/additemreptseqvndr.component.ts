@@ -36,6 +36,14 @@ export class AdditemreptseqvndrComponent implements OnInit {
   processes : Process[];
   hsnCodes : HsnCode[];
 
+  selectedItemTypeId : string = "";
+  selectedItemId :string = "";
+  selectedSubItemId : string = "";
+  selectedProcessName : string = "";
+  selectedProcessStageName : string = "";
+  selectedRecepeVendorId : string = "";
+  selectedProcessVendorId : string = "";
+  selectedHsnId : string = "";
 
 
   @ViewChild('selfClosingAlert', {static: true}) selfClosingAlert: NgbAlert;
@@ -170,16 +178,7 @@ export class AdditemreptseqvndrComponent implements OnInit {
     let selectedItemValue = this.newEntry.item;
     if(selectedItemValue != null && selectedItemValue != "")
     {
-      selectedItemValue = selectedItemValue.split("-")[2];
-      if(selectedItemValue)
-      {
-        selectedItemValue = selectedItemValue.trim();
-      }
-      else{
-        this.newEntry.vendorItemNumber = "";
-        this.newEntry.vendorItemNameId = "";
-        this.newEntry.vendorItemName = "";
-      }
+      
       let item = items.filter(item => {return item.itemId == Number(selectedItemValue)})[0];
       
       if(item != null)
@@ -189,8 +188,16 @@ export class AdditemreptseqvndrComponent implements OnInit {
     }
   }
 
-  setDetails()
+  getSelectedIdFromVal(selectedVal : string)
   {
+    let selectedArr = selectedVal.split("-");
+    let result = selectedArr[selectedArr.length-1].trim();
+    return result;
+  }
+
+   setDetails()
+  {
+    this.newEntry.item = this.getSelectedIdFromVal(this.selectedItemId); 
     this.validateItemId();
     if(this.newEntry.consumptionQty != null && this.newEntry.finishQty != null)
     {

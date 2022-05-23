@@ -3,26 +3,26 @@
 
     <form class="row g-3">
         <div class="col-auto">
-          <input class="form-control" list="iossv" #iosvData name="filterVendor" id="filterVendor" [(ngModel)]="filterVendor" >
+          <input class="form-control" list="iossv" placeholder = "Schedule Vendor" #iosvData name="filterVendor" id="filterVendor" [(ngModel)]="selectedVendor" (change)="filterVendor = getSelectedFilterId(selectedVendor); getDetails();"/>
           <datalist id="iossv">
-            <option *ngFor="let itemOrderSchedule of itemOrderSchedules" [value]="itemOrderSchedule.scheduleVendor" >
-                {{itemOrderSchedule.scheduleVendor}}
+            <option *ngFor="let  scheduleVendor of filterVendors" >
+                {{getVendorName(scheduleVendor)}} - {{scheduleVendor}}
             </option>
           </datalist>
         </div>
         <div class="col-auto">
-            <input class="form-control" list="iosi" #iosiData name="filterItem" id="filterItem" [(ngModel)]="filterItem" >
+            <input class="form-control" list="iosi" placeholder = "Item" #iosiData name="filterItem" id="filterItem" [(ngModel)]="selectedItem" (change)="filterItem = getSelectedFilterId(selectedItem); getDetails();"/>
             <datalist id="iosi">
-              <option *ngFor="let itemOrderSchedule of itemOrderSchedules" [value]="itemOrderSchedule.itemId" >
-                  {{itemOrderSchedule.itemId}}
+              <option *ngFor="let itemId of filterItems">
+                  {{getItemName(itemId)}} - {{itemId}}
               </option>
             </datalist>
         </div>
         <div class="col-auto">
-            <input class="form-control" list="ioso" #iosoData name="filterOrderId" id="filterOrderId" [(ngModel)]="filterOrderId" >
+            <input class="form-control" list="ioso" placeholder = "Order No" #iosoData name="filterOrderId" id="filterOrderId" [(ngModel)]="selectedOrderId" (change)="filterOrderId = getSelectedFilterId(selectedOrderId); getDetails();"/>
             <datalist id="ioso">
-              <option *ngFor="let itemOrderSchedule of itemOrderSchedules" [ngValue]="itemOrderSchedule.itemOrderId" >
-                  {{itemOrderSchedule.itemOrderId}}
+              <option *ngFor="let orderNo of filterOrderIds">
+                {{getItemOrderNo(orderNo)}} - {{orderNo}}
               </option>
             </datalist>
         </div>

@@ -36,6 +36,7 @@ export class AdditemorderComponent implements OnInit {
   hsnCodes : HsnCode[];
   vendors : Vendor[];
   items : Item[];
+  selectedItemId : string = "";
 
   @ViewChild('selfClosingAlert', {static: true}) selfClosingAlert: NgbAlert;
 
@@ -184,6 +185,17 @@ export class AdditemorderComponent implements OnInit {
     
     this.irsvProcessStageNos = irsvPSnos;
     
+  }
+
+  getIdFromSelection(selectedVal : string)
+  {
+    if(selectedVal != null && selectedVal != "")
+    {
+      let valArr = selectedVal.split("-");
+      let result = valArr[valArr.length-1].trim();
+      return result;
+    }
+    return "";
   }
 
   getItemIdFromRecptSeqVndrs()

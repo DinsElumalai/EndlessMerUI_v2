@@ -7,28 +7,30 @@
         <tbody>
             <tr>
                 <td>ItemType</td><td>
-                    <select [(ngModel)]="newEntry.itemType" class="form-control" name="itemType">
-                        <option *ngFor="let itemType of itemTypes" [value]="itemType.itemTypeId"> 
-                            {{itemType.itemTypeId}} - {{itemType.itemTypeName}}
+                    <input class="form-control" list="itemTypes" #ivrsData name="itemType" id="itemType" [(ngModel)]="selectedItemTypeId" (change)="newEntry.itemType = getSelectedIdFromVal(selectedItemTypeId)"/>
+                    <datalist id="itemTypes">   
+                        <option *ngFor="let itemType of itemTypes"> 
+                            {{itemType.itemTypeName}} - {{itemType.itemTypeId}}
                         </option>
-                    </select>
+                    </datalist>
                 </td>
                 <td>Item</td>
                 <td>
-                    <input class="form-control" list="items" #ivrsData name="item" id="item" [(ngModel)]="newEntry.item" (change)="setDetails()" >
+                    <input class="form-control" list="items" #ivrsData name="item" id="item" [(ngModel)]="selectedItemId" (change)="setDetails()" >
                     <datalist id="items">
-                        <option *ngFor="let item of items" [ngValue]="item"> 
-                            {{item.itemOurCode}} - {{item.itemName}} - {{item.itemId}}
+                        <option *ngFor="let item of items"> 
+                            {{item.itemNameId}} - {{item.itemName}} - {{item.itemId}}
                         </option>
                     </datalist>
                 </td>
                 <td>ReceipeVendor</td>
                 <td>
-                    <select [(ngModel)]="newEntry.receipeVendor" class="form-control" name="receipeVendor">
-                        <option *ngFor="let vendor of receipeVendors" [value]="vendor.vendorId"> 
-                            {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                    <input type="text" list="receipeVendors" [(ngModel)]="selectedRecepeVendorId" class="form-control" name="receipeVendor" (change)="newEntry.receipeVendor = getSelectedIdFromVal(selectedRecepeVendorId)">
+                    <datalist id="receipeVendors">
+                        <option *ngFor="let vendor of receipeVendors" > 
+                            {{vendor.vendorNameId}} - {{vendor.vendorName}} - {{vendor.vendorId}}
                         </option>
-                    </select>
+                    </datalist>
                 </td>    
             </tr><br>
             <tr>
@@ -42,10 +44,10 @@
                 </td>
                 <td>ProcessStageName</td>
                 <td>
-                    <input class="form-control" list="processes" #ivrsData name="processStageName" id="processStageName" [(ngModel)]="newEntry.processStageName"/>
+                    <input class="form-control" list="processes" #ivrsData name="processStageName" id="processStageName" [(ngModel)]="selectedProcessStageName" (change)="newEntry.processStageName = getSelectedIdFromVal(selectedProcessStageName)"/>
                     <datalist id="processes">
-                        <option *ngFor="let process of processes" [value]="process.processId"> 
-                                {{process.processId}} - {{process.processName}}
+                        <option *ngFor="let process of processes"> 
+                                {{process.processName}} - {{process.processId}}
                         </option>
                     </datalist>
                 </td> 
@@ -64,11 +66,12 @@
                     
                 </td> 
                 <td>ProcessName</td><td>
-                    <select [(ngModel)]="newEntry.processName" class="form-control" name="processName">
-                        <option *ngFor="let process of processes" [value]="process.processId"> 
-                            {{process.processId}} - {{process.processName}}
+                    <input class="form-control" list="processes" #ivrsData name="processName" id="processName" [(ngModel)]="selectedProcessName" (change)="newEntry.processName = getSelectedIdFromVal(selectedProcessName)"/>
+                    <datalist id="processes">
+                        <option *ngFor="let process of processes"> 
+                                {{process.processName}} - {{process.processId}}
                         </option>
-                    </select>
+                    </datalist>
                 </td>
                 <td>ProcessFor</td>
                 <td>
@@ -91,10 +94,10 @@
                 </td>
                 <td>SubItemId</td>
                 <td>
-                    <input class="form-control" list="subItemIds" #ivrsData name="subItemId" id="subItemId" [(ngModel)]="newEntry.subItemId" >
+                    <input class="form-control" list="subItemIds" #ivrsData name="subItemId" id="subItemId" [(ngModel)]="selectedSubItemId" (change)="newEntry.subItemId = getSelectedIdFromVal(selectedSubItemId)"/>
                     <datalist id="subItemIds">
-                        <option *ngFor="let subItem of subItems" [value]="subItem.itemId"> 
-                            {{subItem.itemOurCode}} - {{subItem.itemName}}
+                        <option *ngFor="let subItem of subItems"> 
+                            {{subItem.itemNameId}} - {{subItem.itemName}} - {{subItem.itemId}}
                         </option>
                     </datalist>
                 </td>
@@ -124,21 +127,29 @@
                 <td>BalanceQty</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.balanceQty" name="balanceQty" readonly></td>
                 <td>Process Vendor</td>
                 <td>
-                    <select [(ngModel)]="newEntry.processVendor" class="form-control" name="processVendor">
-                        <option *ngFor="let vendor of vendors" [value]="vendor.vendorId"> 
-                            {{vendor.vendorOurCode}} - {{vendor.vendorName}}
+                    <input type="text" list="vendors" [(ngModel)]="selectedProcessVendorId" class="form-control" name="processVendor" (change)="newEntry.processVendor = getSelectedIdFromVal(selectedProcessVendorId)">
+                    <datalist id="vendors">
+                        <option *ngFor="let vendor of vendors"> 
+                            {{vendor.vendorNameId}} - {{vendor.vendorName}} - {{vendor.vendorId}}
                         </option>
-                    </select>
+                    </datalist>
                 </td>
             </tr><br>
             <tr>
                 <td>HSCCodeId</td>
                 <td>
-                    <select [(ngModel)]="newEntry.hsnCodeId" class="form-control" name="hsnCodeId">
-                        <option *ngFor="let hsncode of hsnCodes" [value]="hsncode.hsnId"> 
-                            {{hsncode.hsnCode}} - {{hsncode.hsnDescription}}
+                    <input type="text" list="hsnCodes" [(ngModel)]="selectedHsnId" class="form-control" name="hsnCodeId" (change)="newEntry.hsnCodeId = getSelectedIdFromVal(selectedHsnId)">
+                    <datalist id="hsnCodes">
+                        <option *ngFor="let hsncode of hsnCodes"> 
+                            {{hsncode.hsnCode}} - {{hsncode.hsnDescription}} - {{hsncode.hsnId}}
                         </option>
-                    </select>
+                    </datalist>
+                <!--
+                <select class="form-control" name="hsnCodeId" [(ngModel)]="selectedHsnId" (change)="newEntry.hsnCodeId = getSelectedIdFromVal(selectedHsnId)" readonly>
+                    <option *ngFor="let hsncode of hsnCodes"> 
+                        {{hsncode.hsnCode}} - {{hsncode.hsnDescription}} - {{hsncode.hsnId}}
+                    </option>
+                </select> -->
                 </td>
                 <td>VendorItemNumber</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemNumber" name="vendorItemNumber" ></td>
                 <td>VendorItemName</td><td><input type="text" class="form-control" [(ngModel)]="newEntry.vendorItemName" name="vendorItemName" ></td>

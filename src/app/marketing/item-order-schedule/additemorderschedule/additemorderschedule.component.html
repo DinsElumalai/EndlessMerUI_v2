@@ -29,10 +29,15 @@
                     </select>
                 </td>
                 <td>
-                    <input class="form-control" list="items" #ivrsData name="itemId" id="itemId" [(ngModel)]="newEntry.itemId" (change)="getItemOrderOrderNos()" >
+                    <input class="form-control" list="items" #ivrsData name="itemId" id="itemId" [(ngModel)]="selectedItemId" (change)="newEntry.itemId = getIdFromSelection(selectedItemId); getItemOrderOrderNos()" >
+                  <!--  <datalist id="items">
+                        <option *ngFor="let processStageNoandName of processStageNoandNames">
+                            {{getItemName(getItemIdByProcessStageNo(processStageNoandName.getKey()))}} - {{processStageNoandName.getKey()}} - {{getItemIdByProcessStageNo(processStageNoandName.getKey())}}
+                        </option>
+                    </datalist>-->
                     <datalist id="items">
-                        <option *ngFor="let processStageNo of itemOrderItemIds" [value]="getItemIdByProcessStageNo(processStageNo)">
-                            {{getItemIdByProcessStageNo(processStageNo)}} - {{processStageNo}}
+                        <option *ngFor="let processStageNo of itemOrderItemIds">
+                            {{getItemName(getItemIdByProcessStageNo(processStageNo))}} - {{processStageNo}} - {{getItemIdByProcessStageNo(processStageNo)}}
                         </option>
                     </datalist>
                 </td>
