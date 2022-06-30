@@ -175,7 +175,7 @@ export class AdditemorderComponent implements OnInit {
     let irsvProcessStageNos = this.itemReptSeqVndrs;
 
     irsvProcessStageNos = irsvProcessStageNos.filter( irvs => {
-                return    irvs.item == this.newEntry.itemId
+                return    (irvs.item == this.newEntry.itemId && irvs.processVendor == this.newEntry.orderToVendorId)
     });
     let irsvPSnos = new Set();
     for(let irsv of irsvProcessStageNos)

@@ -36,6 +36,7 @@ export class AddempregComponent implements OnInit {
     canInsert : boolean = true;
     modelReference : any;
     employees : Employee[];
+    employeesList : Employee[];
     empSelectedValue : any;
     setEtime : boolean = true;
     setEtimeOption : boolean = false;
@@ -103,6 +104,9 @@ export class AddempregComponent implements OnInit {
       this.helperService.getEmployees().subscribe(data => 
                       {
                           this.employees =  data;
+                          this.employeesList = data;
+
+                          this.employeesList = this.employeesList.filter(emp => { return emp.resigned == false;});
                       }, error => {console.log(error);});
     }
 

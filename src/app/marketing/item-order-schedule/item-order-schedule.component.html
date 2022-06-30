@@ -26,6 +26,17 @@
               </option>
             </datalist>
         </div>
+        <span *ngIf="filterDateCheck" class="col-auto">
+            <div class="col-auto">
+                From Date <input type="date" id="filterFromDate" class="form-control" name="filterFromDate" [(ngModel)]="filterFromDate"/>
+            </div>
+            <div class="col-auto">
+                To Date <input type="date" id="filterToDate" class="form-control" name="filterToDate" [(ngModel)]="filterToDate"/>
+            </div>
+        </span>
+        <div class="col-auto">
+            <input type="button" id="filterDate" name="filterDate" class="form-control" (click)="filterDateCheck = !filterDateCheck" value="Date Range">
+        </div>
         <div class="col">
           <button type="button" class="btn btn-primary mb-3" (click)="getDetails()">Get Details</button>
         </div>

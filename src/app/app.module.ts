@@ -129,6 +129,8 @@ import { ItemSubtypeComponent } from './master/item-subtype/item-subtype.compone
 import { AddItemsubtypeComponent } from './master/itemSubtype/add-itemsubtype/add-itemsubtype.component';
 import { DesignationComponent } from './master/designation/designation.component';
 import { AddDesignationComponent } from './master/designation/add-designation/add-designation.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { TestingComponent } from './modules/testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -238,6 +240,7 @@ import { AddDesignationComponent } from './master/designation/add-designation/ad
     AddItemsubtypeComponent,
     DesignationComponent,
     AddDesignationComponent,
+    TestingComponent,
     
   ],
   imports: [
@@ -262,6 +265,7 @@ import { AddDesignationComponent } from './master/designation/add-designation/ad
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    AgGridModule.withComponents(null),
   ],
   providers: [],
   bootstrap: [AppComponent]

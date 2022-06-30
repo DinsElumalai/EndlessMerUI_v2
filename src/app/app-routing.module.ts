@@ -61,6 +61,7 @@ import { ItemReptSeqVndrComponent } from './master/item-rept-seq-vndr/item-rept-
 import { ProcessComponent } from './master/process/process.component';
 import { ItemOrderComponent } from './marketing/item-order/item-order.component';
 import { ItemOrderScheduleComponent } from './marketing/item-order-schedule/item-order-schedule.component';
+import { TestingComponent } from './modules/testing/testing.component';
 
 const routes: Routes = [
 
@@ -132,7 +133,8 @@ const routes: Routes = [
   {path : 'addrole', component : AddRoleComponent},
   {path : 'listrole', component : ListRoleComponent},
   {path : 'itemtransaction', component : ItemTransactionComponent},
-
+  //Testing
+  {path : 'test', component : TestingComponent},
 
 ];
 

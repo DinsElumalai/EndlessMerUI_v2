@@ -1,1 +1,358 @@
-<div> Item Document</div>
+
+<!--<ag-grid-angular 
+    style="width: 700px; height: 500px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs">
+</ag-grid-angular>
+-->
+
+<div class="container card" >
+    <div class="container-fluid">
+        <br>
+        <div class="row rowDiv">
+          <div class="col col-md-auto"><label>Document For :</label></div>
+          <div class="col col-md-auto"><select name="docFor" [(ngModel)]="newEntry.documentFor"><option>Outward</option><option>Inward</option></select></div>
+
+          <div class="col col-md-auto"><label>Category :</label></div>
+          <div class="col col-md-auto"><input type="text" value="Domestic" name="category" [(ngModel)]="newEntry.documentCategory"/></div>
+
+          <div class="col col-md-auto"><label>Purpose :</label></div>
+          <div class="col col-md-auto"><select name="purpose" [(ngModel)]="newEntry.documentPurpose">
+                            <option>Sales</option>
+                            <option>Purchase</option>
+                            <option>Job Work</option>
+                            <option>Others</option>
+                          </select></div>
+        
+        <div class="col col-md-auto"><label>Type :</label></div>
+        <div class="col col-md-auto"><select style="width:auto;" name="type" [(ngModel)]="newEntry.documentType">
+                            <option>Proforma Invoice</option>
+                            <option>Tax Invoice</option>
+                            <option>Delivery Challan</option>
+                          </select></div>
+
+        <div class="col col-md-auto"><label>Returnable ? :</label></div>
+        <div class="col col-md-auto"><select name="returnable" [(ngModel)]="newEntry.returnable">
+                            <option>Yes</option>
+                            <option>No</option>
+                          </select></div>
+        </div>
+        <hr>
+        <div class="row rowDiv">                  
+        <div class="col col-md-auto"><label>Order:</label></div>
+        <div class="col col-md-auto"><select name="conssiderOrder" [(ngModel)]="newEntry.conssiderOrder">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select></div>
+        
+        <div class="col col-md-auto"><label>MultipleOrder:</label></div>
+        <div class="col col-md-auto"><select name="multipleOrder" [(ngModel)]="newEntry.multipleOrder">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select></div>
+
+        <div class="col col-md-auto"><label>RequisitionType:</label></div>
+        <div class="col col-md-auto"><select name="requistionType" [(ngModel)]="newEntry.requistionType">
+                            <option>Manual</option>
+                            <option>eNoteSlip</option>
+                        </select></div>
+
+        <div class="col col-md-auto"><label>Requisition#:</label></div>
+        <div class="col col-md-auto"><input type="text" name="requisitionNo" [(ngModel)]="newEntry.requisitionNo" /></div>
+
+        <div class="col col-md-auto"><label>StockConsidered:</label></div>
+        <div class="col col-md-auto"><select name="stockConsidered" [(ngModel)]="newEntry.stockConsidered">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select></div>
+
+        
+        </div>
+        <hr>
+        <div class="row rowDiv">
+            <div class="col"><label>Vendor From/To :</label></div>
+            <div class="col"><select name="vendorFromTo" [(ngModel)]="newEntry.vendorFromTo" (change)="getItemOrders();setVendorDetails()">
+                                <option>-- Select --</option>
+                                <option *ngFor="let vendor of vendors">{{vendor.vendorNameId}} - {{vendor.vendorName}} - {{vendor.vendorId}}</option>
+                            </select></div>
+    
+            <div class="col"><label>Delivery From/To :</label></div>
+            <div class="col"><select name="deliveryFromTo" [(ngModel)]="newEntry.deliveryFromTo">
+              <option *ngFor="let vendor of vendors">{{vendor.vendorNameId}} - {{vendor.vendorName}} - {{vendor.vendorId}}</option>
+                            </select></div>
+        </div>
+        <hr>
+        <div class="row rowDiv">
+            <div class="col"><label>Doc No. :</label></div>
+            <div class="col"><input type="text" name="documentOurCode" [(ngModel)]="newEntry.documentOurCode"/></div>
+    
+            <div class="col"><label>Doc Date :</label></div>
+            <div class="col"><input type="date" name="documentDate" [(ngModel)]="newEntry.documentDate"/></div>
+
+            <div class="col"><label>Doc Time :</label></div>
+            <div class="col"><input type="time" name="documentTime" [(ngModel)]="newEntry.documentTime"/></div>
+
+            <div class="col"><label>Removal Date :</label></div>
+            <div class="col"><input type="date" name="removalDate" [(ngModel)]="newEntry.removalDate"/></div>
+        </div>
+        <div class="row rowDiv">
+            <div class="col"><label>Removal Time :</label></div>
+            <div class="col"><input type="time" name="removalTime" [(ngModel)]="newEntry.removalTime"/></div>
+
+            <div class="col"><label>Entrance Reg Id :</label></div>
+            <div class="col"><input type="text" name="entranceRegisterId" [(ngModel)]="newEntry.entranceRegisterId"/></div>
+
+            <div class="col"><label>Vechile No :</label></div>
+            <div class="col"><input type="text" name="vehicleNo" [(ngModel)]="newEntry.vehicleNo"/></div>
+
+            <div class="col"><button type="button" class="btn btn-primary" (click)="openVerticallyCentered(splView)">Special View</button></div>
+            
+        </div>
+      </div>
+      <hr>
+      <form  (ngSubmit)="onSubmit()">
+        <div style="overflow-x:scroll;">
+          <table class="table table-striped" >
+              <thead>
+                  <tr>
+                      <th *ngFor="let headerColumn of insertHeaderColumns">{{headerColumn}}</th>
+                  </tr>
+              </thead>
+              <tbody>
+              <!-- <tr *ngFor="let docSubEntry of getDocSubEntries(); let i=index"> --><tr>
+                  <td>
+                    <select name = "orderNo" [(ngModel)]="docSubEntryTemp.orderNo" class="form-control" (change)="getPopup1Details(docSubEntryTemp)">
+                      <option> -- Select -- </option>
+                      <option *ngFor="let itemOrder of orderNoItemOrders">{{itemOrder.orderNo}}</option>
+                    </select>
+                  </td>  
+                <td><button type="button" class="btn btn-primary" (click)="openVerticallyCentered(custPartNo)">Select</button></td> 
+                <td><input type="text" name = "vendorItemName"  [(ngModel)]="docSubEntryTemp.vendorItemName" class="form-control" ></td>
+                <td><input type="text" name="uom" [(ngModel)]="docSubEntryTemp.uom" class="form-control" ></td>
+                <td><input type="text" name = "unitPriceUom" [(ngModel)]="docSubEntryTemp.unitPriceUom" class="form-control" ></td>
+                <td><input type="text" name="jobworkRedPercentage" [(ngModel)]="docSubEntryTemp.jobworkRedPercentage" class="form-control"></td> 
+                
+                <td><input type="text" name ="qtyInNos" [(ngModel)]="docSubEntryTemp.qtyInNos" class="form-control" > </td> 
+                <td><input type="text" name = "qtyInKgs" [(ngModel)]="docSubEntryTemp.qtyInKgs" class="form-control" ></td> 
+                <!--<td><input type="text" name ="docQtyInNos" [(ngModel)]="docSubEntryTemp.docQtyInNos" class="form-control" readonly> </td> 
+                <td> <input type="text" name = "docQtyInKgs" [(ngModel)]="docSubEntryTemp.docQtyInKgs" class="form-control" readonly> </td> -->
+                <td><input type="text" name="assessableValue" [(ngModel)]="docSubEntryTemp.assessableValue" class="form-control" ></td>
+                <td><button type="button" class="btn btn-primary" (click)="openVerticallyCentered(schNo)" >Select</button></td>
+                
+              </tr> 
+              
+              </tbody>   
+            </table>
+            
+        </div>
+      <hr>
+      <div style="overflow-x:scroll;">
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th *ngFor="let headerColumn of viewHeaderColumns">{{headerColumn}}</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let docSubEntry of getDocSubEntries(); let i = index;">
+                <td>{{docSubEntry.orderNo}}</td>
+                <td>{{docSubEntry.vendorItemNumber}}</td>
+                <td>{{docSubEntry.vendorItemName}}</td>
+                <td>{{docSubEntry.uom}}</td>
+                <td>{{docSubEntry.unitPriceUom}}</td>
+                <td>{{docSubEntry.jobworkRedPercentage}}</td>
+                <td>{{docSubEntry.docQtyInNos}}</td>
+                <td>{{docSubEntry.docQtyInKgs}}</td>
+                <td>{{docSubEntry.assessableValue}}</td>
+                <td>{{docSubEntry.itemOrderScheduleId}}</td>
+                <td><button (click)="removeSubEntry(i)" class="btn btn-danger">Remove </button></td>
+              </tr>
+            </tbody>
+        </table>
+        </div>
+      </form>
+      <div>
+        <div class="row rowDiv">
+            <div class="col"><label>Package Rate :</label></div>
+            <div class="col"><input type="text" name="packagingRate" [(ngModel)]="newEntry.packagingRate"/></div>
+    
+            <div class="col"><label>Nos :</label></div>
+            <div class="col"><input type="text" /></div>
+
+            <div class="col"><label>Assessible Value :</label></div>
+            <div class="col"><input type="text" /></div>
+
+            <div class="col"><label>Invoice Value :</label></div>
+        </div>
+        <div class="row rowDiv">
+            <div class="col"><label>Freight Rate :</label></div>
+            <div class="col"><input type="text" name="freightRate" [(ngModel)]="newEntry.freightRate"/></div>
+    
+            <div class="col"><label>No of Bundle/Cartes/Bin/Packs</label></div>
+            <div class="col"><input type="text" /></div>
+
+            <div class="col"><label>SGST :</label></div>
+            <div class="col"><input type="text" name="sgst" [(ngModel)]="newEntry.sgst"/></div>
+
+            <div class="col"><input type="text" /></div>
+        </div>
+        <div class="row rowDiv">
+            <div class="col"><label>Packaging + Freight Rate :</label></div>
+            <div class="col"><input type="text"/></div>
+    
+            <div class="col"><label>Gross Wt.</label></div>
+            <div class="col"><input type="text"/></div>
+
+            <div class="col"><label>CGST :</label></div>
+            <div class="col"><input type="text" name="cgst" [(ngModel)]="newEntry.cgst"/></div>
+
+            <div class="col"><button type="button" class="btn btn-warning" (click)="pageClear()">Clear</button></div>
+        </div>
+        <div class="row rowDiv">
+            <div class="col"></div>
+            <div class="col"></div>
+    
+            <div class="col"><label>Net Wt.</label></div>
+            <div class="col"><input type="text"/></div>
+
+            <div class="col"><label>TCS% :</label></div>
+            <div class="col"><input type="text"/></div>
+
+            <div class="col"><button type="button" class="btn btn-success" (click)="onSubmit()">Summary & Save</button></div>
+        </div>
+        
+      </div>
+</div>
+<br><br>
+<!-------------------------------------------------------------------------------------------------------------->
+<ng-template #splView let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Special View</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div align="center">
+        <table class="table table-borderless">
+            <tr>
+                <td>Prefix Special</td><td><input type="text" name="prefixSpecial" [(ngModel)]="newEntry.prefixSpecial" class="form-control" readonly/></td>
+                <td>No of Extra Copy</td><td><input type="text" name="noofExtraCopy" [(ngModel)]="newEntry.noofExtraCopy" class="form-control" readonly/></td>
+            </tr>
+            <tr>
+                <td>Converted Document?</td><td><select name="convertedDocument" [(ngModel)]="newEntry.convertedDocument" class="form-control"><option>Yes</option><option>No</option></select></td>
+                <td>Converted Item Doc</td><td><input type="text" name="convertedItemDocumentId" [(ngModel)]="newEntry.convertedItemDocumentId" class="form-control"/></td>
+            </tr>
+        </table>
+      </div>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<!------------------------------------------------------------------------>
+
+<ng-template #custPartNo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Cust Part No</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div align="center">
+        <table class="table">
+        <tr>
+          <td> # </td>
+          <td>Item Id</td>
+          <td>Vendor Item #</td>
+          <td>Vendor Item Name</td>
+          <td>Order Line #</td>
+          <td>Order Nos</td>
+          <td>Order Kgs</td>
+          <td>Unit Price UOM</td>
+        </tr>
+        <tr *ngFor="let itemOrder of popup1ItemOrders">
+          <td><input type="radio" (click)="selectedPopup1(itemOrder)" name="itemId"/></td>
+          <td>{{itemOrder.itemId}}</td>
+          <td>{{itemOrder.vendorItemNumber}}</td>
+          <td>{{itemOrder.vendorItemName}}</td>
+          <td>{{itemOrder.orderLineNo}}</td>
+          <td>{{itemOrder.orderNos}}</td>
+          <td>{{itemOrder.orderKgs}}</td>
+          <td>{{itemOrder.unitPriceUom}}</td>
+      </tr>
+    </table>
+      </div>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+<ng-template #schNo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">
+        Schedule Breakup
+        <span style="float:right; padding-left: 350px;">
+          Qty No. : {{docSubEntryTemp.qtyInNos}} <br>
+          Qty Kgs : {{docSubEntryTemp.qtyInKgs}}
+        </span>
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div align="center">
+        <table class="table table-striped">
+          <tr>
+            <td> # </td>
+            <td>Schedule Type</td>
+            <td>Schedule Date</td>
+            <td>Schedule Nos</td>
+            <td>Schedule Kgs</td>
+            <td>Order Schedule OurCode</td>
+          </tr>
+          <tr *ngFor="let itemOrderSchedule of popup2ItemOrderSchedules; let i=index;">
+            <td><span *ngIf="docSchSubEntries[i].docQtyInNos != ''" >
+                    <input type="checkbox" (click)="calculateSchSubEntry();selectedPopup2(itemOrderSchedule)" [id]="'chk'+i"/>
+                </span></td>
+            <td>{{itemOrderSchedule.scheduleType}}</td>
+            <td>{{itemOrderSchedule.scheduleDate}}</td>
+            <td>
+              {{itemOrderSchedule.scheduleNos}} 
+              <span >
+                <input type="text" name="docQtyInNos" [(ngModel)]="docSchSubEntries[i].docQtyInNos"/>
+              </span>
+            </td>
+            <td>
+              {{itemOrderSchedule.scheduleKgs}}
+              <span >
+                <input type="text" name="docQtyInKgs"/>
+              </span>
+            </td>
+            <td>{{itemOrderSchedule.orderScheduleOurCode}}</td>
+          </tr>
+      </table>
+      </div>
+    <ngb-alert #selfClosingAlert *ngIf="alertMsg" type="danger" (closed)="alertMsg = false">{{alertMessage }}
+    </ngb-alert>
+    </div>
+    <div class="modal-footer">
+      <span style="padding-right: 300px;">Total Qty Nos. : {{docSchSubEntryTotalDocNo}}</span>
+      <span *ngIf = "docSchSubEntryTotalDocNo == docSubEntryTemp.qtyInNos">
+        <button type="button" (click)="addSubEntry();modal.close('Close click')" class="btn btn-success">Add</button>
+      </span>
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<!--
+    <ag-grid-angular 
+    style="width: 100%; height: 200px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs">
+</ag-grid-angular>
+-->

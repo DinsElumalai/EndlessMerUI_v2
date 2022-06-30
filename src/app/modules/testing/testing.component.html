@@ -1,0 +1,74 @@
+<p>testing works!</p>
+
+<div class="container">  
+    
+    <h1> Dynamically Add New Input Fields in Angular </h1>  
+      
+    <form [formGroup]="itemDocForm" (ngSubmit)="onSubmit()">  
+            
+      <table class="table table-bordered" formArrayName="docSubEntries">  
+        <tr>  
+          <th colspan="2">Add Multiple SubEntry:</th>  
+          <th width="150px"><button type="button" (click)="addSubEntry()" class="btn btn-primary">Add More</button></th>  
+        </tr>  
+        <tr *ngFor="let docSubEntry of docSubEntries().controls; let i=index" [formGroupName]="i">  
+          <td>   
+              <input type="text" formControlName="orderNo" class="form-control">  
+          </td>  
+          <td>  
+              VendorItemNumber:  
+              <input type="text" formControlName="vendorItemNumber" class="form-control">  
+          </td> 
+          <td>  
+              VendorItemName:  
+              <input type="text" formControlName="vendorItemName" class="form-control">  
+          </td>
+          <td>  
+              uom:  
+              <input type="text" formControlName="uom" class="form-control">  
+          </td>
+          <td>  
+              UnitPricePerUom:  
+              <input type="text" formControlName="unitPricePerUom" class="form-control">  
+          </td>
+          <td>  
+              JobworkReductionOnPercentage:  
+              <input type="text" formControlName="jobworkReductionOnPercentage" class="form-control">  
+          </td> 
+          <td>  
+              QtyInNos:  
+            <input type="text" formControlName="qtyInNos" class="form-control">  
+          </td> 
+          <td>  
+            QtyInKgs:  
+            <input type="text" formControlName="qtyInKgs" class="form-control">  
+          </td> 
+          <td>  
+            DocQtyInNos:  
+            <input type="text" formControlName="docQtyInNos" class="form-control">  
+          </td> 
+          <td>  
+            DocQtyInKgs:  
+            <input type="text" formControlName="docQtyInKgs" class="form-control">  
+          </td> 
+          <td>  
+            AssessableValue:  
+            <input type="text" formControlName="assessableValue" class="form-control">  
+          </td>
+          <td>  
+            ItemOrderScheduleId:  
+            <input type="text" formControlName="itemOrderScheduleId" class="form-control">  
+          </td>
+          <td>  
+              <button (click)="removeSubEntry(i)" class="btn btn-danger">Remove</button>  
+          </td>  
+        </tr>  
+      </table>  
+       
+      <button type="submit" class="btn btn-success">Submit</button>  
+        
+    </form>  
+        
+    <br/>  
+    {{this.itemDocForm.value | json}}  
+  </div>  

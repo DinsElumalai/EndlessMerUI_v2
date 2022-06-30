@@ -13,8 +13,8 @@
             <tr>
                 <td> * </td>
                 <td><input class="form-control" #emp list="employees" name="IemployeId" id="employeeName" [(ngModel)]="empSelectedValue" (change)="showName(emp.value)">
-                    <datalist id="employees"  >
-                      <option *ngFor="let employee of employees" [ngValue]="employee" >
+                    <datalist id="employees" >
+                      <option *ngFor="let employee of employeesList" [ngValue]="employee" >
                         {{employee.employeeOurCode}} - {{employee.employeeName}}
                       </option>
                     </datalist></td>

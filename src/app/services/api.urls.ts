@@ -55,6 +55,7 @@ export class ApiUrls
     //------------------------------------------------------------------------------------
     //Finance
     static ledgerApi = ApiUrls.baseUrl + 'ledger';
+    static itemDocumentApi = ApiUrls.baseUrl + 'itemDocument'
     //------------------------------------------------------------------------------------
     //QMS
     //DocRecPerformance

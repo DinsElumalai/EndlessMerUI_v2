@@ -23,6 +23,10 @@ export class ItemOrderScheduleComponent implements OnInit {
   filterItem : string;
   filterVendor : string;
   filterOrderId : string;
+  filterFromDate : Date;
+  filterToDate : Date;
+  filterDate : Date;
+  filterDateCheck : boolean;
 
   filterItems : any;
   filterVendors : any;
@@ -47,6 +51,9 @@ export class ItemOrderScheduleComponent implements OnInit {
     this.getVendors();
     this.getItems();
     this.getItemOrders();
+
+    this.filterDate = new Date();
+    this.filterDateCheck = false;
     
   }
 
@@ -55,7 +62,6 @@ export class ItemOrderScheduleComponent implements OnInit {
     this.apiHelper.getList(ApiUrls.itemOrderScheduleApi).subscribe(data => {
       this.entries = data;
 
-      
       this.filterData();
       this.filterItems = this.entries;
       this.getUniqueItemIds();
@@ -71,6 +77,27 @@ export class ItemOrderScheduleComponent implements OnInit {
 
   filterData()
   {
+
+    if(!this.filterDateCheck)
+    {
+      this.filterDate = new Date();
+      this.entries = this.entries.filter(entry => { 
+        return (new Date(entry.scheduleDate).getDate() == this.filterDate.getDate() &&
+        new Date(entry.scheduleDate).getMonth() == this.filterDate.getMonth() &&
+        new Date(entry.scheduleDate).getFullYear() == this.filterDate.getFullYear())
+
+      });
+    }
+    
+    if(this.filterDateCheck && this.filterFromDate != null)
+    {
+      this.entries = this.entries.filter(entry => { return new Date(entry.scheduleDate) >= new Date(this.filterFromDate)});
+      if(this.filterToDate != null)
+      {
+        this.entries = this.entries.filter(entry => { return new Date(entry.scheduleDate) <= new Date(this.filterToDate)});
+      }
+    }
+
     if(this.filterVendor != null && this.filterVendor != "")
       this.entries = this.entries.filter(entry => { return entry.scheduleVendor == this.filterVendor});
 
