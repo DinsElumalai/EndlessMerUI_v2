@@ -1,8 +1,8 @@
 
 export class ApiUrls
 {
-    //static baseUrl = 'http://localhost:9090/api/';
-    static baseUrl = window.location.href.substring(0,window.location.href.indexOf("mercuryMMS")) + "mmswebservice/api/";  //fetching from login component
+    static baseUrl = 'http://localhost:9090/api/';
+    //static baseUrl = window.location.href.substring(0,window.location.href.indexOf("mercuryMMS")) + "mmswebservice/api/";  //fetching from login component
 
     static appUrl = window.location.href.substring(0,window.location.href.lastIndexOf("/"));
     

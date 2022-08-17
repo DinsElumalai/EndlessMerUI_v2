@@ -40,15 +40,15 @@ export class ItemDocument
     unitPricePerUOM : string;
     itemOrderScheduleId : string;
     jobworkReductionPercentage : string;
-    qtyinNos : string;
-    qtyinKgs : string;
-    documentQtyinNos : string;
-    documentQtyinKgs : string;
-    assessableValue : string;
-    sgst : string;
-    cgst : string;
-    igst : string;
-    totalValue : string;
+    qtyinNos : string = "";
+    qtyinKgs : string = "";
+    documentQtyinNos : string = "0";
+    documentQtyinKgs : string = "0";
+    assessableValue : string = "0";
+    sgst : string = "0";
+    cgst : string = "0";
+    igst : string = "0";
+    totalValue : string ="0";
     packaging : string;
     noofPackaging : string;
     hsnsaCode : string;
@@ -60,19 +60,23 @@ export class ItemDocument
     vendorItemWeightinGms : string;
     finishedItemWeightinGms : string;
     consumeItemWeightinGms : string;
-    freightCalcType : string;
     freightRate : string;
     freightRateType : string;
-    freightValue : string;
-    packagingCalcType : string;
+    freightValue : string = "0";
     packagingRate : string;
     packagingRateType : string;
-    packagingValue : string;
-    pfCalcType : string;
+    packagingValue : string = "0";
     pfRate : string;
     pfRateType : string;
-    pfValue : string;
+    pfValue : string = "0";
     tcsPercentage : string;
-    tcsValue : string;
+    tcsValue : string = "0";
+
+    //temp data
+    orderNo: string = "";
+    orderLineNo: string ="";
+    orderNos : string ="";
+    orderKgs: string ="";
+    vendorItemNameId : string ="";
     
 }

@@ -1,2 +1,80 @@
-<p>item-document works!</p>
+
 <app-additemdocument></app-additemdocument>
+
+<div class="container card" >
+    <div class="container-fluid">
+        <br>
+       <!-- <div>
+            <span>
+                <span><b>VendorFromTo : </b><input type="text" name="vendorFromToSR" [(ngModel)]="vendorFromToSR" /></span>
+                <span><b>DateFrom : </b><input type="date" name="dateFromSR" [(ngModel)]="dateFromSR" /></span>
+                <span><b>DateTo : </b><input type="date" name="dateToSR" [(ngModel)]="dateToSR" /></span>
+                <span class="spn"><button type="button" class="btn btn-primary">Apply Filter</button></span>
+            </span>
+            <span style="float:right;">
+                
+                <span><b>Doc. No : </b><input type="text" name="docNoSR" [(ngModel)]="docNoSR"/></span>
+            </span>
+        </div>-->
+        <div style="overflow-x:scroll;">
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <td *ngFor="let entryName of entryNames">
+                            {{entryName.charAt(0).toUpperCase()}}{{entryName.substring(1)}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="docNoSR" [(ngModel)]="docNoSR" (keyup)="searchFilter()"/></td>
+                        <td></td><td></td><td></td>
+                        <td><input type="date" name="documentDateSR" [(ngModel)]="documentDateSR" (change)="searchFilter()"/></td>
+                        <td></td>
+                        <td><input type="text" name="vendorFromToSR" [(ngModel)]="vendorFromToSR" (keyup)="searchFilter()"/></td>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr *ngFor="let entry of entries">
+                            <td *ngFor="let entryName of entryNames">
+                                {{getEntryProperty(entry, entryName)}}
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content, entry)">Modal</button>
+                            </td>
+                        </tr>
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Item Document Record</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <td></td>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of modelPopupRecord | keyvalue">
+                <td> {{record.key.charAt(0).toUpperCase()}}{{record.key.substring(1)}}</td>
+                <td>:</td>
+                <td>{{record.value}}</td>
+            </tr>
+        </tbody>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
+<br><br>
