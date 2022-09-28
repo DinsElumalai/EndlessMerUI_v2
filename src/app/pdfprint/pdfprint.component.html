@@ -1,0 +1,127 @@
+
+
+<div id="print-section" class="card" style="width:750px; text-align: center;align-items: center;">
+    <br>
+    <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-jfoo" colspan="6">TAX INVOICE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-nrix" rowspan="4">Logo<br></td>
+            <td class="tg-cly1" colspan="2" rowspan="4">
+              <b>Address </b>: {{vendor.address1}} <br> {{vendor.address2}}  {{vendor.address3}} <br>
+                        {{vendor.city}} {{vendor.state}} <br>{{vendor.country}} {{vendor.pincode}}
+              <br>
+              <b>GSTIN </b>: {{vendor.gstin}}
+            </td>
+            <td class="tg-91pb" colspan="2">Invoice No</td>
+            <td class="tg-nrix" rowspan="4">Image 2<br></td>
+          </tr>
+          <tr>
+            <td class="tg-0lax" colspan="2"></td>
+          </tr>
+          <tr>
+            <td class="tg-91pb" colspan="2">Date</td>
+          </tr>
+          <tr>
+            <td class="tg-c3ow" colspan="2"> {{ currDate | date:'mediumDate' }}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">
+              <b>Address </b>: {{vendor.address1}} <br> {{vendor.address2}}  {{vendor.address3}} <br>
+              {{vendor.city}} {{vendor.state}} <br>{{vendor.country}} {{vendor.pincode}}<br>
+              <b>GSTIN </b>: {{vendor.gstin}}
+            </td>
+            <td class="tg-0pky" colspan="3">Vendor Given Code : 
+                      <br>{{vendor.vendorGivenCode}}
+                      </td>
+          </tr>
+          <tr>
+            <td class="tg-ri3q" colspan="2">Description of Goods</td>
+            <td class="tg-bxco">Quantity</td>
+            <td class="tg-bxco">Rate</td>
+            <td class="tg-bxco">Per</td>
+            <td class="tg-bxco">Amount</td>
+          </tr>
+          <tr *ngFor="let itemDocument of itemDocuments">
+            <td class="tg-0lax" colspan="2"> {{ itemDocument.vendorItemName}} - {{ itemDocument.vendorItemNumber}}</td>
+            <td class="tg-0lax"> {{ itemDocument.documentQtyinNos}}</td>
+            <td class="tg-0lax">{{ itemDocument.unitPricePerUOM}}</td>
+            <td class="tg-0lax">{{itemDocument.uom}}</td>
+            <td class="tg-0lax">{{itemDocument.assessableValue}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">{{numToWords(ttAssessableVal)}}</td>
+            <td class="tg-fymr" colspan="2">Assessible Value </td>
+            <td class="tg-0pky">{{ttAssessableVal}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">{{numToWords(ttIgst)}}</td>
+            <td class="tg-fymr" colspan="2">IGST </td>
+            <td class="tg-0pky">{{ttIgst}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">{{numToWords(ttSgst)}}</td>
+            <td class="tg-fymr" colspan="2">SGST</td>
+            <td class="tg-0pky">{{ttSgst}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">{{numToWords(ttCgst)}}</td>
+            <td class="tg-fymr" colspan="2">CGST</td>
+            <td class="tg-0pky">{{ttCgst}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">{{numToWords(ttTcs)}}</td>
+            <td class="tg-fymr" colspan="2">TCS</td>
+            <td class="tg-0pky">{{ttTcs}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">{{numToWords(ttTotalVal)}}</td>
+            <td class="tg-fymr" colspan="2">Total Value</td>
+            <td class="tg-0pky">{{ttTotalVal}}</td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="6">
+                Certified that the particulars given above are true and correct and the amount 
+                indicated represents the price actually and that there is no flow of additional
+                consideration directly or indirectly from the buyer <b>SUBJECT TO CHENNAI JURISDICTION</b>
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-0pky">Time Prepared: <p><br>{{itemDocuments[0].documentTime}}</p> </td>
+            <td class="tg-0pky" colspan="2">Date and Time of Removal: <p><br>{{itemDocuments[0].removalDate}}{{itemDocuments[0].removalTime}}</p></td>
+            <td class="tg-0pky" colspan="3" rowspan="2">
+                <p>For</p>
+                <p>{{forVendor.vendorName}}</p>
+                <p class="tg-nrix">Authorised Signatory</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3" rowspan="2"></td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" colspan="3">
+                <p class="tg-nrix">Received Correctly and in good condition</p>
+                <p><br></p>
+                <p class="tg-nrix">Signatue with company seal</p>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+        <br> 
+          
+</div>
+<br>
+<div style="text-align:center;">
+    <button 
+              class="btn btn-secondary " 
+              printSectionId="print-section" 
+              [useExistingCss]="true"
+              styleSheetFile="node_modules/bootstrap/dist/css/bootstrap.min.css"
+              ngxPrint>Print</button>
+</div>
+<br>
+ 

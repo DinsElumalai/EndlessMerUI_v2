@@ -40,6 +40,7 @@
                             <td>
                                 <button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content, entry)">Modal</button>
                             </td>
+                            <td><button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCenteredPdf(printContent); setDocOurCodePrint(getEntryProperty(entry, 'documentOurCode'))">Print</button></td>
                         </tr>
                         
                 </tbody>
@@ -78,3 +79,16 @@
   </ng-template>
   
 <br><br>
+
+<ng-template #printContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Item Document Record</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <app-pdfprint [docOurCode]="docOurCodePrint"></app-pdfprint>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

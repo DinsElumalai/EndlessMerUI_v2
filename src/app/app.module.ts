@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgxPrintModule } from 'ngx-print';
+
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -131,6 +133,7 @@ import { DesignationComponent } from './master/designation/designation.component
 import { AddDesignationComponent } from './master/designation/add-designation/add-designation.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { TestingComponent } from './modules/testing/testing.component';
+import { PdfprintComponent } from './pdfprint/pdfprint.component';
 
 @NgModule({
   declarations: [
@@ -241,6 +244,7 @@ import { TestingComponent } from './modules/testing/testing.component';
     DesignationComponent,
     AddDesignationComponent,
     TestingComponent,
+    PdfprintComponent,
     
   ],
   imports: [
@@ -266,6 +270,7 @@ import { TestingComponent } from './modules/testing/testing.component';
     ReactiveFormsModule,
     NgbModule,
     AgGridModule.withComponents(null),
+    NgxPrintModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

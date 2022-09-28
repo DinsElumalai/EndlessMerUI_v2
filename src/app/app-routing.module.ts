@@ -62,6 +62,7 @@ import { ProcessComponent } from './master/process/process.component';
 import { ItemOrderComponent } from './marketing/item-order/item-order.component';
 import { ItemOrderScheduleComponent } from './marketing/item-order-schedule/item-order-schedule.component';
 import { TestingComponent } from './modules/testing/testing.component';
+import { PdfprintComponent } from './pdfprint/pdfprint.component';
 
 const routes: Routes = [
 
@@ -135,6 +136,7 @@ const routes: Routes = [
   {path : 'itemtransaction', component : ItemTransactionComponent},
   //Testing
   {path : 'test', component : TestingComponent},
+  {path : 'pdf', component : PdfprintComponent}
 
 ];
 

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
 import { ApiHelper } from '../../services/apiHelper';
 import { ApiUrls } from '../../services/api.urls';
 import { ItemDocument } from './item-document';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @Component({
   selector: 'app-item-document',
@@ -19,6 +21,8 @@ export class ItemDocumentComponent implements OnInit {
   documentDateSR : Date = new Date();
   docNoSR : string = "";
   modelPopupRecord : ItemDocument;
+
+  docOurCodePrint : string = "";
   
   entryNames : string[] = ['documentOurCode', 'documentFor', 'documentPurpose', 'documentType', 'documentDate',
                             'itemDocumentId', 'vendorFromTo', 'vehicleNo', 'documentQtyinNos',
@@ -34,6 +38,10 @@ export class ItemDocumentComponent implements OnInit {
   openVerticallyCentered(content : any, record : ItemDocument) {
     this.modalService.open(content, { centered: true });
     this.modelPopupRecord = record;
+  }
+  openVerticallyCenteredPdf(content : any)
+  {
+    this.modalService.open(content, { size: 'lg' });
   }
 
   getItemDocuments()
@@ -71,4 +79,16 @@ export class ItemDocumentComponent implements OnInit {
     this.entries = entries;
   }
 
+  generatePdf()
+  {
+    
+    window.open();
+  }
+
+  setDocOurCodePrint(docOurCode : string)
+  {
+    this.docOurCodePrint = docOurCode;
+  }
+
+  
 }

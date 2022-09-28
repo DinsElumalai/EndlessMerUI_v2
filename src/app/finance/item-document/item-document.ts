@@ -43,14 +43,15 @@ export class ItemDocument
     qtyinNos : string = "";
     qtyinKgs : string = "";
     documentQtyinNos : string = "0";
-    documentQtyinKgs : string = "0";
+    documentQtyinKgs : string = "0"; // net wt
     assessableValue : string = "0";
     sgst : string = "0";
     cgst : string = "0";
     igst : string = "0";
     totalValue : string ="0";
-    packaging : string;
-    noofPackaging : string;
+    packaging : string;  // dropdown type
+    noofPackaging : string; // no of bundles .......
+    packagingWt : string = "0";  //gross wt
     hsnsaCode : string;
     hsnsaDescription : string;
     hsnsaRatePercentage : string;

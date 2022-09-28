@@ -1,8 +1,8 @@
 
 export class ApiUrls
 {
-    static baseUrl = 'http://localhost:9090/api/';
-    //static baseUrl = window.location.href.substring(0,window.location.href.indexOf("mercuryMMS")) + "mmswebservice/api/";  //fetching from login component
+    //static baseUrl = 'http://localhost:9090/api/';
+    static baseUrl = window.location.href.substring(0,window.location.href.indexOf("mercuryMMS")) + "mmswebservice/api/";  //fetching from login component
 
     static appUrl = window.location.href.substring(0,window.location.href.lastIndexOf("/"));
     
@@ -55,7 +55,8 @@ export class ApiUrls
     //------------------------------------------------------------------------------------
     //Finance
     static ledgerApi = ApiUrls.baseUrl + 'ledger';
-    static itemDocumentApi = ApiUrls.baseUrl + 'itemDocument'
+    static itemDocumentApi = ApiUrls.baseUrl + 'itemDocument';
+    static itemDocumentDocOurCodeApi = ApiUrls.baseUrl + 'itemDocument/docOurcode/';
     //------------------------------------------------------------------------------------
     //QMS
     //DocRecPerformance

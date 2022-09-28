@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, FormControl, UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-testing',
@@ -11,20 +11,20 @@ export class TestingComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  itemDocForm: FormGroup;  
+  itemDocForm: UntypedFormGroup;  
      
-  constructor(private fb:FormBuilder) {  
+  constructor(private fb:UntypedFormBuilder) {  
      
     this.itemDocForm = this.fb.group({
       docSubEntries: this.fb.array([]) ,  
     });  
   }  
     
-  docSubEntries() : FormArray {  
-    return this.itemDocForm.get("docSubEntries") as FormArray  
+  docSubEntries() : UntypedFormArray {  
+    return this.itemDocForm.get("docSubEntries") as UntypedFormArray  
   }  
      
-  newSubEntry(): FormGroup {  
+  newSubEntry(): UntypedFormGroup {  
     return this.fb.group({  
       orderNo: '',  
       vendorItemNumber: '',  
